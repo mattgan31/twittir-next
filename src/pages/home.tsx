@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { CreatePostRequest, GetPostsRequest } from "@/redux-saga/action/postAction";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
-
+import * as Solid from "@heroicons/react/24/solid"
+import * as Outline from "@heroicons/react/24/outline"
+import { CreateLikePostRequest } from "@/redux-saga/action/likeAction";
 
 export default function PostList() {
     const dispatch = useDispatch();
@@ -15,6 +17,10 @@ export default function PostList() {
 
     let isLoggedIn = typeof window !== "undefined" && sessionStorage.getItem('token') || undefined
 
+    const handleLike = (id: number): void => {
+        dispatch(CreateLikePostRequest({ id }))
+        setRefresh(true)
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -40,14 +46,15 @@ export default function PostList() {
             router.push("/login");
         }
         dispatch(GetPostsRequest());
+        setRefresh(false);
     }, [refresh, dispatch, router, isLoggedIn]);
 
     return (
         <div className="container min-w-2xl max-w-3xl bg-slate-100 mb-20">
-            <div className="p-6 border-b-2 border-gray-600">
+            <div className="p-6 border-b-2 border-stone-500">
                 <h1 className="text-2xl font-medium">Home</h1>
             </div>
-            <div className="p-6 border-b-2 border-gray-600">
+            <div className="p-6 border-b-2 border-stone-500">
                 <form onSubmit={formik.handleSubmit}>
                     <label className="text-gray-700">Create a Post</label>
                     <input
@@ -70,18 +77,21 @@ export default function PostList() {
             {posts ? (
                 posts.map((post: any) => (
                     <div
-                        onClick={() => router.push(`/posts/${post.id}`)}
                         key={post.id}
-                        className="container border-b-2 border-gray-600 item-center justify-center py-4 cursor-pointer"
+                        className="container border-b-2 border-stone-500 item-center justify-center py-4"
                     >
                         <div className="px-6 py-1">
-                            <h3 className="text-lg font-medium ">{post.user.username}</h3>
+                            <h3 className="text-lg font-medium cursor-pointer">{post.user.username}</h3>
                         </div>
-                        <div className="px-3 py-1 rounded-lg mx-6">
+                        <div className="px-3 py-1 rounded-lg mx-6 cursor-pointer" onClick={() => router.push(`/posts/${post.id}`)}>
                             <p>{post.post}</p>
                             <p className="font-light text-sm text-black">
-                                Date: {moment(post.updatedAt).format("DD/MM/YYYY HH:mm")}
+                                Date: {moment(post.createdAt).format("DD/MM/YYYY HH:mm")}
                             </p>
+                        </div>
+                        <div className="flex justify-center px-3 py-1 rounded-lg mx-6 cursor-pointer">
+                            <div className="w-1/2 text-center flex justify-center" onClick={() => handleLike(post.id)}><Outline.HeartIcon className="h-8 w-8" /><p className="py-1 px-2">{post.likes.length > 0 ? post.likes.length : '0'}</p></div>
+                            <div className="w-1/2 text-center flex justify-center"><Outline.ChatBubbleLeftIcon className="h-8 w-8" /><p className="py-1 px-2">{post.comments.length > 0 ? post.comments.length : '0'}</p></div>
                         </div>
                     </div>
                 ))

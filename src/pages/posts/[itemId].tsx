@@ -6,6 +6,9 @@ import { ArrowLeftIcon } from "@heroicons/react/24/solid"
 import { useFormik } from 'formik';
 import { CreateCommentRequest } from '../../redux-saga/action/commentAction';
 import { useRouter } from 'next/router';
+import { CreateLikePostRequest } from '@/redux-saga/action/likeAction';
+import * as Solid from "@heroicons/react/24/solid"
+import * as Outline from "@heroicons/react/24/outline"
 
 export default function PostDetail() {
     const router = useRouter();
@@ -33,37 +36,47 @@ export default function PostDetail() {
         if (itemId) {
             dispatch(GetPostByIdRequest(itemId));
         }
+        setRefresh(false);
     }, [dispatch, itemId, refresh]);
+
+    const handleLike = (id: number): void => {
+        dispatch(CreateLikePostRequest({ id }))
+        setRefresh(true)
+    };
 
     if (!itemId || !selectedPost) {
         return <div>Loading...</div>;
     }
 
     // Destructure the selectedPost to avoid unnecessary repetition
-    const { user, post, updatedAt, comments } = selectedPost.posts;
+    const { id, user, post, createdAt, comments, likes } = selectedPost.posts;
 
     return (
-        <div className="container min-w-2xl max-w-3xl bg-slate-100">
-            <div className="flex p-6 p-6 border-b-2 border-gray-600">
+        <div className="container min-w-2xl min-h-screen max-w-3xl bg-slate-100 h-full">
+            <div className="flex p-6 p-6 border-b-2 border-stone-500">
 
                 <button className="me-8" onClick={() => router.back()}>
                     <ArrowLeftIcon className='h-8 w-8' />
                 </button>
                 <h1 className="text-2xl font-medium">Post</h1>
             </div>
-            <div className="container border-b-2 border-gray-600 item-center justify-center py-4">
+            <div className="container border-b-2 border-stone-500 item-center justify-center py-4">
                 <div className="px-6 py-1">
                     <h3 className="text-xl font-bold ">{user.username}</h3>
                 </div>
                 <div className="px-3 py-1  mx-6">
                     <p>{post}</p>
                     <p className="font-light text-sm text-black">
-                        Date: {moment(updatedAt).format('DD/MM/YYYY HH:mm')}
+                        Date: {moment(createdAt).format('DD/MM/YYYY HH:mm')}
                     </p>
                 </div>
             </div>
-            <div className='border-gray-500 border-b-2'>
-                <form className='p-6 flex'
+            <div className="flex justify-center px-3 py-1 rounded-lg my-3 mx-6 cursor-pointer">
+                <div className="w-1/2 text-center flex justify-center" onClick={() => handleLike(id)}><Outline.HeartIcon className="h-8 w-8" /><p className="py-1 px-2">{likes.length > 0 ? likes.length : '0'}</p></div>
+                <div className="w-1/2 text-center flex justify-center"><Outline.ChatBubbleLeftIcon className="h-8 w-8" /><p className="py-1 px-2">{comments.length > 0 ? comments.length : '0'}</p></div>
+            </div>
+            <div className='border-stone-500 border-b-2 border-t-2'>
+                <form className='px-6 py-2 flex'
                     onSubmit={formik.handleSubmit}>
                     <input type='text' className='flex-1 me-2 rounded-md my-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 block p-2'
                         placeholder='Type your reply now!'
@@ -80,7 +93,7 @@ export default function PostDetail() {
             <div className=''>
                 {comments ? (
                     comments.map((comment: any) => (
-                        <div key={comment.id} className='container border-b-2 border-gray-600 item-center justify-center py-4'>
+                        <div key={comment.id} className='container border-b-2 border-stone-500 item-center justify-center py-4'>
                             <div className="px-6 py-1">
                                 <h3 className='text-lg font-semibold'>{comment.user.username}</h3>
                             </div>

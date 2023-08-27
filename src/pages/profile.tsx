@@ -36,13 +36,13 @@ export default function Profile() {
 
     return (
         <div className="container min-w-2xl max-w-3xl bg-slate-100">
-            <div className="flex p-6 border-b-2 border-gray-600">
+            <div className="flex p-6 border-b-2 border-stone-500">
                 <button className="me-8" onClick={() => router.back()}>
                     <ArrowLeftIcon className="h-8 w-8" />
                 </button>
                 <h1 className="text-2xl font-medium">Post</h1>
             </div>
-            <div className="container border-b-2 border-gray-600 item-center justify-center py-4">
+            <div className="container border-b-2 border-stone-500 item-center justify-center py-4">
                 <div className="px-6 py-1 flex justify-between">
                     <h3 className="text-xl font-bold">{username}</h3>
                     <button
@@ -58,7 +58,7 @@ export default function Profile() {
                             <div
                                 onClick={() => router.push(`/posts/${post.id}`)}
                                 key={post.id}
-                                className="container border-b-2 border-gray-600 item-center justify-center py-4 cursor-pointer"
+                                className="container border-b-2 border-stone-500 item-center justify-center py-4 cursor-pointer"
                             >
                                 <div className="px-6 py-1">
                                     <h3 className="text-lg font-medium ">{post.user.username}</h3>
