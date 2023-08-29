@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
     if (isLoginPage || isRegisterPage) {
         return (
             <Provider store={store}>
-                <main className="flex flex-col items-center h-screen ">
+                <main className="flex flex-col items-center h-fit max-h-full ">
                     <Component {...pageProps} />
                 </main>
             </Provider>
@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
     return (
         <Provider store={store}>
-            <main className="flex flex-col items-center bg-gray-100">
+            <main className="flex flex-col items-center bg-gray-100 min-h-screen h-fit max-h-full ">
                 <Component {...pageProps} />
             </main>
             <Navbar />

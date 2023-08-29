@@ -52,7 +52,7 @@ const GetPostByIdSuccessfully = (state: any, action: any) => {
 const GetPostByUserIdSuccessfully = (state: any, action: any) => {
     return {
         ...state,
-        posts: action.payload,
+        userPosts: action.payload,
     }
 }
 
