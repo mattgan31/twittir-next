@@ -6,8 +6,7 @@ import { ArrowLeftIcon } from "@heroicons/react/24/solid"
 import { useFormik } from 'formik';
 import { CreateCommentRequest } from '../../redux-saga/action/commentAction';
 import { useRouter } from 'next/router';
-import { CreateLikePostRequest } from '@/redux-saga/action/likeAction';
-import * as Solid from "@heroicons/react/24/solid"
+import { CreateLikeCommentRequest, CreateLikePostRequest } from '@/redux-saga/action/likeAction';
 import * as Outline from "@heroicons/react/24/outline"
 
 export default function PostDetail() {
@@ -33,14 +32,18 @@ export default function PostDetail() {
     })
 
     useEffect(() => {
-        if (itemId) {
-            dispatch(GetPostByIdRequest(itemId));
-        }
+
+        dispatch(GetPostByIdRequest(itemId));
+
         setRefresh(false);
     }, [dispatch, itemId, refresh]);
 
     const handleLike = (id: number): void => {
         dispatch(CreateLikePostRequest({ id }))
+        setRefresh(true)
+    };
+    const handleLikeComment = (id: number): void => {
+        dispatch(CreateLikeCommentRequest({ id }))
         setRefresh(true)
     };
 
@@ -51,8 +54,12 @@ export default function PostDetail() {
     // Destructure the selectedPost to avoid unnecessary repetition
     const { id, user, post, createdAt, comments, likes } = selectedPost.posts;
 
+    const profile = typeof window !== "undefined" && JSON.parse(sessionStorage.getItem('profile') || '{}');
+
+    const userLikedPosts = likes.filter((like: any) => like.user.id === profile.id);
+
     return (
-        <div className="container min-w-2xl min-h-screen max-w-3xl bg-slate-100 h-full">
+        <div className="container min-w-2xl min-h-screen max-w-3xl bg-slate-100 h-full mb-20">
             <div className="flex p-6 p-6 border-b-2 border-stone-500">
 
                 <button className="me-8" onClick={() => router.back()}>
@@ -72,7 +79,7 @@ export default function PostDetail() {
                 </div>
             </div>
             <div className="flex justify-center px-3 py-1 rounded-lg my-3 mx-6 cursor-pointer">
-                <div className="w-1/2 text-center flex justify-center" onClick={() => handleLike(id)}><Outline.HeartIcon className="h-8 w-8" /><p className="py-1 px-2">{likes.length > 0 ? likes.length : '0'}</p></div>
+                <div className="w-1/2 text-center flex justify-center" onClick={() => handleLike(id)}> <Outline.HeartIcon className={`h-8 w-8 ${userLikedPosts.length > 0 ? 'fill-red-600' : ''}`} /> <p className="py-1 px-2">{likes.length > 0 ? likes.length : '0'}</p></div>
                 <div className="w-1/2 text-center flex justify-center"><Outline.ChatBubbleLeftIcon className="h-8 w-8" /><p className="py-1 px-2">{comments.length > 0 ? comments.length : '0'}</p></div>
             </div>
             <div className='border-stone-500 border-b-2 border-t-2'>
@@ -100,6 +107,9 @@ export default function PostDetail() {
                             <div className="px-6 py-1 mx-6">
                                 <p>{comment.description}</p>
                                 <p className='font-light text-sm text-black'>Date: {moment(comment.updatedAt).format('DD/MM/YYYY HH:mm')}</p>
+                            </div>
+                            <div className="flex justify-center px-3 py-1 rounded-lg mx-6 cursor-pointer">
+                                <div className="w-1/2 text-center flex justify-center" onClick={() => handleLikeComment(comment.id)}><Outline.HeartIcon className={`h-8 w-8 ${comment.likes && comment.likes.some((like: any) => like.user.id === profile.id) ? 'fill-red-600' : ''}`} /><p className="py-1 px-2">{comment.likes ? comment.likes.length : '0'}</p></div>
                             </div>
                         </div>
                     ))

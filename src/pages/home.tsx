@@ -49,6 +49,9 @@ export default function PostList() {
         setRefresh(false);
     }, [refresh, dispatch, router, isLoggedIn]);
 
+    const profile = typeof window !== "undefined" && JSON.parse(sessionStorage.getItem('profile') || '{}');
+
+
     return (
         <div className="container min-w-2xl max-w-3xl bg-slate-100 mb-20">
             <div className="p-6 border-b-2 border-stone-500">
@@ -90,7 +93,7 @@ export default function PostList() {
                             </p>
                         </div>
                         <div className="flex justify-center px-3 py-1 rounded-lg mx-6 cursor-pointer">
-                            <div className="w-1/2 text-center flex justify-center" onClick={() => handleLike(post.id)}><Outline.HeartIcon className="h-8 w-8" /><p className="py-1 px-2">{post.likes.length > 0 ? post.likes.length : '0'}</p></div>
+                            <div className="w-1/2 text-center flex justify-center" onClick={() => handleLike(post.id)}><Outline.HeartIcon className={`h-8 w-8 ${post.likes.some((like: any) => like.user.id === profile.id) ? 'fill-red-600' : ''}`} /><p className="py-1 px-2">{post.likes.length > 0 ? post.likes.length : '0'}</p></div>
                             <div className="w-1/2 text-center flex justify-center"><Outline.ChatBubbleLeftIcon className="h-8 w-8" /><p className="py-1 px-2">{post.comments.length > 0 ? post.comments.length : '0'}</p></div>
                         </div>
                     </div>

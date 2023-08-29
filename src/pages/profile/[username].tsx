@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetPostByIdRequest } from '../../redux-saga/action/postAction';
+import { GetPostByUserIdRequest } from '../../redux-saga/action/postAction';
 import { ArrowLeftIcon } from "@heroicons/react/24/solid"
 import { useFormik } from 'formik';
 import { CreateCommentRequest } from '../../redux-saga/action/commentAction';
@@ -29,13 +29,15 @@ export default function Profile() {
     }
   })
 
+  const profile = typeof window !== "undefined" && JSON.parse(sessionStorage.getItem('profile') || '{}');
+
   useEffect(() => {
     if (itemId) {
-      dispatch(GetPostByIdRequest(itemId));
+      dispatch(GetPostByUserIdRequest(itemId));
     }
   }, [dispatch, itemId, refresh]);
 
-  if (!itemId || !selectedPost) {
+  if (!selectedPost) {
     return <div>Loading...</div>;
   }
 
@@ -55,7 +57,7 @@ export default function Profile() {
         <div className="px-6 py-1">
           <h3 className="text-xl font-bold ">{user.username}</h3>
         </div>
-        <div className="px-3 py-1  mx-6">
+        <div className="px-3 py-1  mx-6 ">
           <p>{post}</p>
           <p className="font-light text-sm text-black">
             Date: {moment(updatedAt).format('DD/MM/YYYY HH:mm')}
@@ -63,16 +65,19 @@ export default function Profile() {
         </div>
       </div>
       <div className='p-6 flex border-b-2 border-stone-500'>
-        <input type='text' className='flex-1 me-2 rounded-md my-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 block p-2'
-          placeholder='Type your reply now!'
-          value={formik.values.description}
-          id='description'
-          name='description'
-          onChange={formik.handleChange}
-        />
-        <button className='flex my-2 justify-center rounded-md bg-sky-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-          onClick={formik.handleSubmit}
-        >Reply</button>
+        <form className='px-6 py-2 flex'
+          onSubmit={formik.handleSubmit}>
+          <input type='text' className='flex-1 me-2 rounded-md my-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 block p-2'
+            placeholder='Type your reply now!'
+            value={formik.values.description}
+            id='description'
+            name='description'
+            onChange={formik.handleChange}
+          />
+          <button className='flex my-2 justify-center rounded-md bg-sky-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+            type='submit'
+          >Reply</button>
+        </form>
       </div>
       <div className=''>
         {comments ? (
