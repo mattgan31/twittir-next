@@ -19,7 +19,7 @@ export default function Profile() {
       description: ''
     },
     onSubmit: async (values, { resetForm }) => {
-      let payload = {
+      const payload = {
         description: values.description
       }
       dispatch(CreateCommentRequest({ id: itemId, payload }));

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowLeftIcon } from "@heroicons/react/24/solid"
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetPostByUserIdRequest } from '@/redux-saga/action/postAction';
@@ -14,7 +13,7 @@ export default function Profile() {
     const [refresh, setRefresh] = useState(false);
     const [username, setUsername] = useState('');
 
-    let isLoggedIn = typeof window !== "undefined" && sessionStorage.getItem('token');
+    const isLoggedIn = typeof window !== "undefined" && sessionStorage.getItem('token');
     const profile = typeof window !== "undefined" && JSON.parse(sessionStorage.getItem('profile') || '{}');
 
     const handleLogout = () => {
@@ -26,13 +25,17 @@ export default function Profile() {
     useEffect(() => {
         if (!isLoggedIn) {
             router.push("/login");
+        } else {
+            setUsername(profile.username);
+            setTimeout(() => {
+
+                // Refresh the data.
+                dispatch(GetPostByUserIdRequest(profile.id));
+                // Clear the refresh flag.
+                setRefresh(false);
+            }, 100);
         }
 
-        // Dispatch GetPostByUserIdRequest action with the user ID from the profile
-        if (profile) {
-            setUsername(profile.username);
-            dispatch(GetPostByUserIdRequest(profile.id));
-        }
 
         setRefresh(false);
     }, [dispatch, isLoggedIn, router, refresh]);
@@ -46,10 +49,7 @@ export default function Profile() {
     return (
         <div className="container min-w-2xl max-w-3xl bg-slate-100 mb-20">
             <div className="flex p-6 border-b-2 border-stone-500">
-                <button className="me-8" onClick={() => router.back()}>
-                    <ArrowLeftIcon className="h-8 w-8" />
-                </button>
-                <h1 className="text-2xl font-medium">Post</h1>
+                <h1 className="text-2xl font-medium">Profile</h1>
             </div>
             <div className="container border-b-2 border-stone-500 item-center justify-center py-4">
                 <div className="px-6 py-1 flex justify-between">

@@ -15,7 +15,7 @@ export default function PostList() {
     const [refresh, setRefresh] = useState(false);
 
 
-    let isLoggedIn = typeof window !== "undefined" && sessionStorage.getItem('token') || undefined
+    const isLoggedIn = typeof window !== "undefined" && sessionStorage.getItem('token') || undefined
 
     const handleLike = (id: number): void => {
         dispatch(CreateLikePostRequest({ id }))
@@ -27,7 +27,7 @@ export default function PostList() {
             post: "",
         },
         onSubmit: async (values) => {
-            let payload = {
+            const payload = {
                 post: values.post,
             };
             dispatch(CreatePostRequest(payload));
@@ -44,9 +44,14 @@ export default function PostList() {
     useEffect(() => {
         if (!isLoggedIn) {
             router.push("/login");
+        } else {
+            setTimeout(() => {
+                // Refresh the data.
+                dispatch(GetPostsRequest());
+                // Clear the refresh flag.
+                setRefresh(false);
+            }, 100);
         }
-        dispatch(GetPostsRequest());
-        setRefresh(false);
     }, [refresh, dispatch, router, isLoggedIn]);
 
     const profile = typeof window !== "undefined" && JSON.parse(sessionStorage.getItem('profile') || '{}');

@@ -21,7 +21,7 @@ export default function PostDetail() {
             description: ''
         },
         onSubmit: async (values, { resetForm }) => {
-            let payload = {
+            const payload = {
                 description: values.description
             }
             dispatch(CreateCommentRequest({ id: itemId, payload }));
@@ -31,11 +31,21 @@ export default function PostDetail() {
         }
     })
 
+    const isLoggedIn = typeof window !== "undefined" && sessionStorage.getItem('token');
+
     useEffect(() => {
+        if (!isLoggedIn) {
+            router.push("/login");
+        } else{
+        setTimeout(() => {
 
-        dispatch(GetPostByIdRequest(itemId));
+            // Refresh the data.
+            dispatch(GetPostByIdRequest(itemId));
+            // Clear the refresh flag.
+            setRefresh(false);
+          }, 100);
 
-        setRefresh(false);
+        setRefresh(false);}
     }, [dispatch, itemId, refresh]);
 
     const handleLike = (id: number): void => {

@@ -15,7 +15,7 @@ export default function Register(props: any) {
       password: ""
     },
     onSubmit: async (values) => {
-      let payload = {
+      const payload = {
         username: values.username,
         password: values.password,
       };

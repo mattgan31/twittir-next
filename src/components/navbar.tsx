@@ -12,31 +12,39 @@ const Navbar = () => {
     const isProfile = router.pathname === '/profile';
 
     return (
-        <nav className="fixed bg-gray-200 p-4 bottom-0 w-full left-0">
-            <div className="container mx-auto flex justify-center items-center w-96">
+        <nav className="flex fixed bottom-0 left-0 right-0 bg-gray-200 p-4 w-screen">
+            <div className="container mx-auto flex justify-center items-center ">
                 <ul className="flex space-x-56">
                     <li>
                         <Link href="/">
-                            {/* <a className="text-white hover:text-gray-300">Home</a> */}
-                            <HomeIcon className={`h-12 w-12 fill-blue-500 active:fill-blue-900 ${isHome ? 'fill-blue-900' : 'hover:fill-blue-700'}`} />
+                            <HomeIcon
+                                className={`h-12 w-12 fill-blue-500 ${isHome ? 'fill-blue-900' : 'hover:fill-blue-700'
+                                    }`}
+                            />
                         </Link>
                     </li>
                     <li>
                         <Link href="/search">
-                            <MagnifyingGlassIcon className={`h-12 w-12 fill-blue-500 active:fill-blue-900 ${isSearch ? 'fill-blue-900' : 'hover:fill-blue-700'}`} />
+                            <MagnifyingGlassIcon
+                                className={`h-12 w-12 fill-blue-500 ${isSearch ? 'fill-blue-900' : 'hover:fill-blue-700'
+                                    }`}
+                            />
                         </Link>
                     </li>
                     <li>
                         <Link href="/profile">
-                            {/* <a className="text-white hover:text-gray-300">About</a> */}
-                            <UserCircleIcon className={`h-12 w-12 fill-blue-500 active:fill-blue-900 ${isProfile ? 'fill-blue-900' : 'hover:fill-blue-700'}`} />
+                            <UserCircleIcon
+                                className={`h-12 w-12 fill-blue-500 ${isProfile ? 'fill-blue-900' : 'hover:fill-blue-700'
+                                    }`}
+                            />
                         </Link>
                     </li>
-                    {/* Add more navigation links as needed */}
+                    {/* Tambahkan lebih banyak tautan navigasi jika diperlukan */}
                 </ul>
             </div>
         </nav>
     );
+
 };
 
 export default Navbar;

@@ -17,7 +17,7 @@ export default function Login(props: any) {
         },
         onSubmit: async (values) => {
             try {
-                let payload = {
+                const payload = {
                     username: values.username,
                     password: values.password,
                 };
