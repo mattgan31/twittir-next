@@ -46,6 +46,21 @@ export const getUserFail = (payload: any) => ({
     payload
 });
 
+export const searchUserReq = (payload: any) => ({
+    type: ActionUser.SEARCH_USERS_REQ,
+    payload
+});
+
+export const searchUserOk = (payload: any) => ({
+    type: ActionUser.SEARCH_USERS_OK,
+    payload
+});
+
+export const searchUserFail = (payload: any) => ({
+    type: ActionUser.SEARCH_USERS_FAIL,
+    payload
+});
+
 export const doMessageError = (payload: any) => ({
     type: ActionUser.MESSAGE_ERROR,
     payload
