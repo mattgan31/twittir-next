@@ -10,7 +10,8 @@ const getFromStorage = (key: string) => {
 const INIT_STATE = {
     userProfile: getFromStorage('profile'),//? JSON.parse(sessionStorage.getItem('profile')) : 'null',
     userSignup: {},
-    message: ''
+    message: '',
+    usersList: []
 }
 
 const userReducer = (state = INIT_STATE, action: any) => {
@@ -33,6 +34,10 @@ const userReducer = (state = INIT_STATE, action: any) => {
             return state
         case ActionType.GET_USER_OK:
             return GetUserSuccess(state, action)
+        case ActionType.SEARCH_USERS_REQ:
+            return state
+        case ActionType.SEARCH_USERS_OK:
+            return SearchUserSuccess(state, action)
         default:
             return { ...state }
     }
@@ -65,6 +70,13 @@ const GetUserSuccess = (state: any, action: any) => {
     return {
         ...state,
         userProfile: {},
+    }
+}
+
+const SearchUserSuccess = (state: any, action: any) => {
+    return {
+        ...state,
+        usersList: action.payload.data,
     }
 }
 

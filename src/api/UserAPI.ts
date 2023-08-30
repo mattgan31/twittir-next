@@ -30,8 +30,18 @@ const profile = async () => {
     }
 }
 
+const searchUsers = async (payload: any) => {
+    axios.defaults.headers.common = { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+    try {
+        const result = await axios.get(`${config.domain}/search?username=${payload.username}`);
+        return result;
+    } catch (error: any) {
+        return error.message;
+    }
+}
+
 const UserAPI = {
-    register, signin, profile
+    register, signin, profile, searchUsers
 }
 
 export default UserAPI

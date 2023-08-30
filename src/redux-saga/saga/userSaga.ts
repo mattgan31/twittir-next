@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import UserAPI from '../../api/UserAPI';
-import { doMessageError, doSigninSuccess, doSignoutSuccess, doSignupSuccess } from '../action/userAction';
+import { doMessageError, doSigninSuccess, doSignoutSuccess, doSignupSuccess, searchUserFail, searchUserOk } from '../action/userAction';
 
 function* handleSignup(action: any): any {
     const { payload } = action;
@@ -44,8 +44,19 @@ function* handleSignout() {
     }
 }
 
+function* handleSearchUsers(action: any): any {
+    const { payload } = action
+    try {
+        const result = yield call(UserAPI.searchUsers, payload);
+        yield put(searchUserOk(result));
+    } catch (error) {
+        yield put(searchUserFail(error));
+    }
+}
+
 export {
     handleSignin,
     handleSignout,
-    handleSignup
+    handleSignup,
+    handleSearchUsers
 }
