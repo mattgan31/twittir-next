@@ -54,7 +54,7 @@ export default function Search() {
                                 <p>{user.username}</p>
                             </div>
                         ))
-                    ) : <></>}
+                    ) : <div><p>Search users</p></div>}
                 </div>
             </div>
         </div>
