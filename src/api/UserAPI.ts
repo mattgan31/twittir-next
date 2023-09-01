@@ -1,5 +1,6 @@
 import axios from "axios";
 import config from "@/config/config";
+import { getCookie } from "cookies-next";
 
 const register = async (payload: any) => {
     try {
@@ -21,7 +22,7 @@ const signin = async (payload: any) => {
 }
 
 const profile = async () => {
-    axios.defaults.headers.common = { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+    axios.defaults.headers.common = { 'Authorization': `Bearer ${getCookie('token')}` }
     try {
         const result = await axios.get(`${config.domain}/users/profile`);
         return result;
@@ -31,7 +32,7 @@ const profile = async () => {
 }
 
 const searchUsers = async (payload: any) => {
-    axios.defaults.headers.common = { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+    axios.defaults.headers.common = { 'Authorization': `Bearer ${getCookie('token')}` }
     try {
         const result = await axios.get(`${config.domain}/search?username=${payload.username}`);
         return result;

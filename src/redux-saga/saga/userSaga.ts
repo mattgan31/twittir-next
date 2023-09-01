@@ -1,6 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import UserAPI from '../../api/UserAPI';
 import { doMessageError, doSigninSuccess, doSignoutSuccess, doSignupSuccess, searchUserFail, searchUserOk } from '../action/userAction';
+import { setCookie } from 'cookies-next';
 
 function* handleSignup(action: any): any {
     const { payload } = action;
@@ -22,12 +23,12 @@ function* handleSignin(action: any): any {
         if (Object.keys(result.data).length === 0) {
             yield put(doMessageError({ message: 'Invalid User or Password, try again' }));
         } else {
-            sessionStorage.setItem('token', result.data.token)
+            setCookie('token', result.data.token)
             if (action.callback) {
                 action.callback();
             }
             const profile = yield call(UserAPI.profile)
-            sessionStorage.setItem('profile', JSON.stringify(profile.data))
+            setCookie('profile', JSON.stringify(profile.data));
             yield put(doSigninSuccess({ payload: profile.data }))
         }
     } catch (error) {

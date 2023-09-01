@@ -8,6 +8,7 @@ import { CreateCommentRequest } from '../../redux-saga/action/commentAction';
 import { useRouter } from 'next/router';
 import { CreateLikeCommentRequest, CreateLikePostRequest } from '@/redux-saga/action/likeAction';
 import * as Outline from "@heroicons/react/24/outline"
+import { getCookie } from 'cookies-next';
 
 export default function PostDetail() {
     const router = useRouter();
@@ -31,7 +32,7 @@ export default function PostDetail() {
         }
     })
 
-    const isLoggedIn = typeof window !== "undefined" && sessionStorage.getItem('token');
+    const isLoggedIn = typeof window !== "undefined" && getCookie('token');
 
     useEffect(() => {
         if (!isLoggedIn) {
@@ -65,7 +66,7 @@ export default function PostDetail() {
     // Destructure the selectedPost to avoid unnecessary repetition
     const { id, user, post, createdAt, comments, likes } = selectedPost.posts;
 
-    const profile = typeof window !== "undefined" && JSON.parse(sessionStorage.getItem('profile') || '{}');
+    const profile = typeof window !== "undefined" && JSON.parse(getCookie('profile') || '{}');
 
     const userLikedPosts = likes.filter((like: any) => like.user.id === profile.id);
 

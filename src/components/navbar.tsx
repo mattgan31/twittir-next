@@ -6,16 +6,14 @@ import { useEffect, useState } from "react";
 const Navbar = () => {
     const router = useRouter();
 
+    const mainPages = ['/', '/home', '/search', '/profile']
     const isHome = router.pathname === '/' || router.pathname === '/home';
     const isSearch = router.pathname === '/search';
     const isProfile = router.pathname === '/profile';
+    const isMainPage = mainPages.includes(router.pathname)
 
     // Use the useState hook to manage the visibility of the navbar
     const [navbarVisible, setNavbarVisible] = useState(true);
-
-    const toggleNavbar = () => {
-        setNavbarVisible(!navbarVisible);
-    };
 
     useEffect(() => {
         // Add an event listener to handle window resize
@@ -42,7 +40,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <aside className={`fixed bg-white p-4 drop-shadow-lg rounded-lg ${navbarVisible ? 'w-1/6 top-6 left-6 right-0' : 'w-full bottom-0 left-0 right-0'}`}>
+            <aside className={`fixed bg-white p-4 drop-shadow-lg rounded-lg ${!isMainPage ? 'hidden' : ''} ${navbarVisible ? 'w-1/6 top-6 left-6 right-0' : 'w-full bottom-0 left-0 right-0'}`}>
                 <div className={`flex ${navbarVisible ? 'flex-col' : 'flex-row justify-around'}`}>
                     <div className={`pt-2 pb-6 pl-2 border-stone-500 ${navbarVisible ? '' : 'hidden block'}`}>
                         <h1 className="text-2xl font-bold text-sky-600">Twittir</h1>
