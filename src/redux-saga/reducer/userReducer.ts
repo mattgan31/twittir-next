@@ -1,14 +1,15 @@
+import { getCookie } from 'cookies-next';
 import * as ActionType from '../constant/userConstant';
 
 const getFromStorage = (key: string) => {
     if (!key || typeof window === 'undefined') {
         return ""
     }
-    return sessionStorage.getItem(key);
+    return getCookie(key);
 }
 
 const INIT_STATE = {
-    userProfile: getFromStorage('profile'),//? JSON.parse(sessionStorage.getItem('profile')) : 'null',
+    userProfile: getFromStorage('profile'),//? JSON.parse(getCookie('profile')) : 'null',
     userSignup: {},
     message: '',
     usersList: []

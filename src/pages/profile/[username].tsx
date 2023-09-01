@@ -29,7 +29,7 @@ export default function Profile() {
     }
   })
 
-  const profile = typeof window !== "undefined" && JSON.parse(sessionStorage.getItem('profile') || '{}');
+  const profile = typeof window !== "undefined" && JSON.parse(getCookie('profile') || '{}');
 
   useEffect(() => {
     if (itemId) {
