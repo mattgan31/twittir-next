@@ -4,7 +4,7 @@ import { getCookie } from "cookies-next";
 
 const register = async (payload: any) => {
     try {
-        const result = await axios.post(`${config.domain}/users/register`, payload);
+        const result = await axios.post(`${config.domain}/register`, payload);
         console.log();
         return result;
     } catch (error: any) {
