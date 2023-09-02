@@ -6,6 +6,7 @@ import moment from 'moment';
 import { CreateLikePostRequest } from '@/redux-saga/action/likeAction';
 import * as Outline from "@heroicons/react/24/outline"
 import { deleteCookie, getCookie } from 'cookies-next';
+import Image from 'next/image'
 
 export default function Profile() {
     const router = useRouter();
@@ -70,7 +71,8 @@ export default function Profile() {
                             key={post.id}
                             className="container item-center justify-center py-4 drop-shadow-md bg-white mb-6 rounded-lg min-w-2xl max-w-3xl"
                         >
-                            <div className="px-6 py-1">
+                            <div className="px-6 py-1 flex flex-row items-center">
+                                {post.user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${post.user.profile_picture}`} alt={post.user.username} width={80} height={80} className='w-12 h-12 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-12 h-12 mr-2' />}
                                 <h3 className="text-lg font-medium cursor-pointer">{post.user.username}</h3>
                             </div>
                             <div className="px-3 pt-1 pb-4  mx-6 cursor-pointer border-b-2 " onClick={() => router.push(`/posts/${post.id}`)}>

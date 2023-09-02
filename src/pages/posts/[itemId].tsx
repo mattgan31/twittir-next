@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { CreateLikeCommentRequest, CreateLikePostRequest } from '@/redux-saga/action/likeAction';
 import * as Outline from "@heroicons/react/24/outline"
 import { getCookie } from 'cookies-next';
+import Image from 'next/image';
 
 export default function PostDetail() {
     const router = useRouter();
@@ -81,8 +82,9 @@ export default function PostDetail() {
                     <h1 className="text-2xl font-medium">Post</h1>
                 </div>
                 <div className="container item-center justify-center py-4">
-                    <div className="px-6 py-1">
-                        <h3 className="text-xl font-bold ">{user.username}</h3>
+                    <div className="px-6 py-1 flex flex-row items-center">
+                        {user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${user.profile_picture}`} alt={user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
+                        <h3 className="text-lg font-medium cursor-pointer">{user.username}</h3>
                     </div>
                     <div className="px-3 py-1  mx-6">
                         <p>{post}</p>
@@ -111,12 +113,13 @@ export default function PostDetail() {
                     </form>
                 </div>
             </div>
-            <div className='bg-white mb-6 drop-shadow-md rounded-lg'>
+            <div className='mb-6 drop-shadow-md rounded-lg'>
                 {comments ? (
                     comments.map((comment: any) => (
-                        <div key={comment.id} className='container item-center justify-center py-4'>
-                            <div className="px-6 py-1">
-                                <h3 className='text-lg font-semibold'>{comment.user.username}</h3>
+                        <div key={comment.id} className='container item-center justify-center py-4 mb-6 bg-white rounded-lg'>
+                            <div className="px-6 py-1 flex flex-row items-center">
+                                {comment.user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${comment.user.profile_picture}`} alt={comment.user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
+                                <h3 className="text-lg font-medium cursor-pointer">{comment.user.username}</h3>
                             </div>
                             <div className="px-6 pb-6 pt-2 mx-6">
                                 <p>{comment.description}</p>
