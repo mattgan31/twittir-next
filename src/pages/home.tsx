@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import * as Outline from "@heroicons/react/24/outline"
 import { CreateLikePostRequest } from "@/redux-saga/action/likeAction";
 import { getCookie } from 'cookies-next';
+import Image from "next/image";
 
 export default function PostList() {
     const dispatch = useDispatch();
@@ -92,8 +93,9 @@ export default function PostList() {
                             key={post.id}
                             className="container item-center justify-center py-4 drop-shadow-md bg-white mb-6 rounded-lg min-w-2xl max-w-3xl"
                         >
-                            <div className="px-6 py-1">
-                                <h3 className="text-xl font-medium cursor-pointer">{post.user.username}</h3>
+                            <div className="px-6 py-1 flex flex-row items-center">
+                                {post.user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${post.user.profile_picture}`} alt={post.user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
+                                <h3 className="text-lg font-medium cursor-pointer">{post.user.username}</h3>
                             </div>
                             <div className="px-3 pt-1 pb-4  mx-6 cursor-pointer border-b-2" onClick={() => router.push(`/posts/${post.id}`)}>
                                 <p className="mb-3 text-base">{post.post}</p>
