@@ -32,7 +32,7 @@ export default function Search() {
     };
 
     return (
-        <div className="container min-w-2xl max-w-3xl mt-6 mb-20">
+        <div className="container min-w-2xl max-w-screen-lg lg:w-2/4 mt-6 mb-20">
             <div className="bg-white mb-6 drop-shadow-md rounded-lg">
                 <div className="flex p-6 border-b-2">
                     <h1 className="text-2xl font-medium">Search</h1>

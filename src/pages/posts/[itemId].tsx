@@ -72,7 +72,7 @@ export default function PostDetail() {
     const userLikedPosts = likes.filter((like: any) => like.user.id === profile.id);
 
     return (
-        <div className="container min-w-2xl max-w-3xl mt-6 mb-20">
+        <div className="container min-w-2xl max-w-screen-lg lg:w-2/4 mt-6 mb-20">
             <div className='bg-white mb-6 drop-shadow-md rounded-lg'>
                 <div className="flex p-6 p-6 border-gray-100 border-b-2">
 

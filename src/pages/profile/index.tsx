@@ -14,6 +14,7 @@ export default function Profile() {
     const { userPosts } = useSelector((state: any) => state.postState); // Assuming postState is where the posts are stored
     const [refresh, setRefresh] = useState(false);
     const [username, setUsername] = useState('');
+    const [profilePicture, setProfilePicture] = useState('');
 
     const isLoggedIn = typeof window !== "undefined" && getCookie('token');
     const profile = typeof window !== "undefined" && JSON.parse(getCookie('profile') || '{}');
@@ -29,6 +30,8 @@ export default function Profile() {
             router.push("/login");
         } else {
             setUsername(profile.username);
+            setProfilePicture(profile.profilePicture)
+
             setTimeout(() => {
 
                 // Refresh the data.
@@ -49,13 +52,16 @@ export default function Profile() {
     };
 
     return (
-        <div className="container min-w-2xl max-w-3xl mt-6 mb-20">
+        <div className="container min-w-2xl max-w-screen-lg lg:w-2/4 mt-6 mb-20">
             <div className="bg-white mb-6 drop-shadow-md rounded-lg">
                 <div className="flex p-6 border-b-2 border-gray-100">
                     <h1 className="text-2xl font-medium">Profile</h1>
                 </div>
                 <div className="p-6 flex justify-between">
-                    <h3 className="text-xl font-bold">{username}</h3>
+                    <div className='flex flex-row items-center'>
+                        {profilePicture ? (<Image src={`http://localhost:3001/public/uploads/${profilePicture}`} alt={username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
+                        <h3 className="text-xl font-bold">{username}</h3>
+                    </div>
                     <button
                         onClick={handleLogout}
                         className='bg-red-500 px-6 pb-2 pt-1 font-medium text-xl rounded-md text-white'
@@ -69,10 +75,10 @@ export default function Profile() {
                     userPosts.posts.map((post: any) => (
                         <div
                             key={post.id}
-                            className="container item-center justify-center py-4 drop-shadow-md bg-white mb-6 rounded-lg min-w-2xl max-w-3xl"
+                            className="container item-center justify-center py-4 drop-shadow-md bg-white mb-6 rounded-lg min-w-2xl max-w-screen-lg"
                         >
                             <div className="px-6 py-1 flex flex-row items-center">
-                                {post.user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${post.user.profile_picture}`} alt={post.user.username} width={80} height={80} className='w-12 h-12 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-12 h-12 mr-2' />}
+                                {post.user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${post.user.profile_picture}`} alt={post.user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
                                 <h3 className="text-lg font-medium cursor-pointer">{post.user.username}</h3>
                             </div>
                             <div className="px-3 pt-1 pb-4  mx-6 cursor-pointer border-b-2 " onClick={() => router.push(`/posts/${post.id}`)}>

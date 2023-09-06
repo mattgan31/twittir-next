@@ -14,7 +14,7 @@ export default function PostList() {
     const router = useRouter();
     const { posts } = useSelector((state: any) => state.postState.posts);
     const [refresh, setRefresh] = useState(false);
-    const [profile, setProfile] = useState({});
+    const [profile, setProfile] = useState({ id: null });
 
     const isLoggedIn = typeof window !== "undefined" && getCookie('token') || undefined
 
@@ -64,7 +64,7 @@ export default function PostList() {
 
 
     return (
-        <div className="container min-w-2xl max-w-3xl mt-6 mb-20">
+        <div className="container min-w-2xl max-w-screen-lg lg:w-2/4 mt-6 mb-20">
             <div className="bg-white mb-6 drop-shadow-md rounded-lg">
                 <div className="p-6 border-stone-500">
                     <form onSubmit={formik.handleSubmit}>
@@ -91,7 +91,7 @@ export default function PostList() {
                     posts.map((post: any) => (
                         <div
                             key={post.id}
-                            className="container item-center justify-center py-4 drop-shadow-md bg-white mb-6 rounded-lg min-w-2xl max-w-3xl"
+                            className="container item-center justify-center py-4 drop-shadow-md bg-white mb-6 rounded-lg min-w-2xl max-w-screen-lg w-full"
                         >
                             <div className="px-6 py-1 flex flex-row items-center">
                                 {post.user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${post.user.profile_picture}`} alt={post.user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
