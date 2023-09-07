@@ -56,7 +56,7 @@ export default function Search() {
                             usersList.users.map((user: any, index: number) => (
                                 <Link href={`/search/${user.id}`} key={index}>
                                     <div className="py-4 border-b-2 flex flex-row items-center">
-                                        {user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${user.profile_picture}`} alt={user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
+                                        {user.profilePicture ? (<Image src={`http://localhost:3001/public/uploads/${user.profilePicture}`} alt={user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
                                         <h3 className="text-lg font-medium cursor-pointer">{user.username}</h3>
                                     </div>
                                 </Link>
