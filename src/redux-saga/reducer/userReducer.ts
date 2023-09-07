@@ -71,6 +71,7 @@ const GetUserSuccess = (state: any, action: any) => {
     return {
         ...state,
         userProfile: {},
+        user: action.payload.data,
     }
 }
 
