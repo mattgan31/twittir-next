@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import UserAPI from '../../api/UserAPI';
-import { doMessageError, doSigninSuccess, doSignoutSuccess, doSignupSuccess, searchUserFail, searchUserOk } from '../action/userAction';
+import { doMessageError, doSigninSuccess, doSignoutSuccess, doSignupSuccess, getUserFail, getUserOk, searchUserFail, searchUserOk } from '../action/userAction';
 import { setCookie } from 'cookies-next';
 
 function* handleSignup(action: any): any {
@@ -55,9 +55,20 @@ function* handleSearchUsers(action: any): any {
     }
 }
 
+function* handleGetUsers(action: any): any {
+    const { payload } = action
+    try {
+        const result = yield call(UserAPI.getUserById, payload);
+        yield put(getUserOk(result));
+    } catch (error) {
+        yield put(getUserFail(error));
+    }
+}
+
 export {
     handleSignin,
     handleSignout,
     handleSignup,
-    handleSearchUsers
+    handleSearchUsers,
+    handleGetUsers
 }

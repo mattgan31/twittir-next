@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { searchUserReq } from '@/redux-saga/action/userAction';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 export default function Search() {
@@ -53,10 +54,12 @@ export default function Search() {
                     <div className="px-6 pt-5 pb-1">
                         {usersList.users ? (
                             usersList.users.map((user: any, index: number) => (
-                                <div key={index} className="py-4 border-b-2 flex flex-row items-center">
-                                    {user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${user.profile_picture}`} alt={user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
-                                    <h3 className="text-lg font-medium cursor-pointer">{user.username}</h3>
-                                </div>
+                                <Link href={`/search/${user.id}`} key={index}>
+                                    <div className="py-4 border-b-2 flex flex-row items-center">
+                                        {user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${user.profile_picture}`} alt={user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
+                                        <h3 className="text-lg font-medium cursor-pointer">{user.username}</h3>
+                                    </div>
+                                </Link>
                             ))
                         ) : <div><p className='text-gray-500'>Search users</p></div>}
                     </div>
