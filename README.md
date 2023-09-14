@@ -2,7 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+You must run the Backend API first from [Twittir-Nest](https://github.com/mattgan31/twittir-nest)
+Then, run the development server:
 
 ```bash
 npm run dev
