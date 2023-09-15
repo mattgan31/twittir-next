@@ -21,12 +21,6 @@ export default function Profile() {
   const isLoggedIn = typeof window !== "undefined" && getCookie('token');
   const profile = typeof window !== "undefined" && JSON.parse(getCookie('profile') || '{}');
 
-  const handleLogout = () => {
-    deleteCookie("token");
-    deleteCookie("profile");
-    router.push("/login");
-  };
-
   useEffect(() => {
     if (isLoggedIn && userId) {
       dispatch(getUserReq({ userId }));

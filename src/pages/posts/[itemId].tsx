@@ -36,20 +36,26 @@ export default function PostDetail() {
     const isLoggedIn = typeof window !== "undefined" && getCookie('token');
 
     useEffect(() => {
-        if (!isLoggedIn) {
-            router.push("/login");
-        } else {
-            setTimeout(() => {
-
-                // Refresh the data.
-                dispatch(GetPostByIdRequest(itemId));
-                // Clear the refresh flag.
+        const fetchData = async () => {
+            try {
+                if (!isLoggedIn) {
+                    router.push('/login');
+                } else {
+                    await dispatch(GetPostByIdRequest(itemId));
+                }
+            } catch (error) {
+                // Handle the error gracefully
+                console.error('Error fetching post data:', error);
+            } finally {
                 setRefresh(false);
-            }, 100);
+            }
+        };
 
-            setRefresh(false);
+        if (itemId) {
+            fetchData();
         }
-    }, [dispatch, itemId, refresh]);
+        setRefresh(false)
+    }, [dispatch, isLoggedIn, itemId, refresh, router]);
 
     const handleLike = (id: number): void => {
         dispatch(CreateLikePostRequest({ id }))
