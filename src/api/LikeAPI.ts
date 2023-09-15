@@ -15,7 +15,7 @@ const createLikePost = async (id: number) => {
 const createLikeComment = async (id: number) => {
     axios.defaults.headers.common = { 'Authorization': `Bearer ${getCookie('token')}` }
     try {
-        const result = await axios.post(`${config.domain}/posts/${id}/comment/like`);
+        const result = await axios.post(`${config.domain}/comments/${id}/like`);
         return result.data;
     } catch (error: any) {
         return error.message;
