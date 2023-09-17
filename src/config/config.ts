@@ -1,5 +1,5 @@
 const config = {
-    domain: 'http://localhost:3001/api'
+    domain: 'https://twittir-app.vercel.app/api'
 }
 
 export default config;
