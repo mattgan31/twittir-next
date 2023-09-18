@@ -13,3 +13,7 @@ export const GET_POST_ID_FAIL = 'get/id/post/failed'
 export const GET_POST_USER_REQ = 'get/user/post/request'
 export const GET_POST_USER_OK = 'get/user/post/success'
 export const GET_POST_USER_FAIL = 'get/user/post/failed'
+
+export const DELETE_POST_REQ = 'delete/post/request';
+export const DELETE_POST_OK = 'delete/post/success';
+export const DELETE_POST_FAIL = 'delete/post/failed';

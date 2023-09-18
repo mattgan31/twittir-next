@@ -43,11 +43,22 @@ const showPost = async (id: number) => {
     }
 }
 
+const deletePost = async (id: number) => {
+    try {
+        axios.defaults.headers.common = { 'Authorization': `Bearer ${getCookie('token')}` }
+        const result = await axios.delete(`${config.domain}/posts/${id}`);
+        return result.data;
+    } catch (error: any) {
+        return error.message;
+    }
+}
+
 const PostAPI = {
     getAllPosts,
     createPost,
     showPost,
-    getAllPostsByUserId
+    getAllPostsByUserId,
+    deletePost
 }
 
 export default PostAPI;

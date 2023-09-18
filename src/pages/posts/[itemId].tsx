@@ -10,10 +10,13 @@ import { CreateLikeCommentRequest, CreateLikePostRequest } from '@/redux-saga/ac
 import * as Outline from "@heroicons/react/24/outline"
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
+import OverflowMenu from '@/components/overflowMenu';
+import Confirm from '@/components/confirm';
 
 export default function PostDetail() {
     const router = useRouter();
     const [refresh, setRefresh] = useState(false);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
     const { itemId } = router.query;
     const dispatch = useDispatch();
     const { selectedPost } = useSelector((state: any) => state.postState);
@@ -32,6 +35,10 @@ export default function PostDetail() {
             resetForm();
         }
     })
+
+    const toggleConfirmModal = () => {
+        setShowConfirmModal(!showConfirmModal);
+    };
 
     const isLoggedIn = typeof window !== "undefined" && getCookie('token');
 
@@ -70,6 +77,8 @@ export default function PostDetail() {
         return <div>Loading...</div>;
     }
 
+
+
     // Destructure the selectedPost to avoid unnecessary repetition
     const { id, user, post, createdAt, comments, likes } = selectedPost.posts;
 
@@ -79,6 +88,7 @@ export default function PostDetail() {
 
     return (
         <div className="container min-w-2xl max-w-screen-lg lg:w-2/4 mt-6 mb-20">
+            {showConfirmModal && (<Confirm toggleConfirmModal={toggleConfirmModal} id={id} setRefresh={setRefresh} />)}
             <div className='bg-white mb-6 drop-shadow-md rounded-lg'>
                 <div className="flex p-6 p-6 border-gray-100 border-b-2">
 
@@ -88,9 +98,12 @@ export default function PostDetail() {
                     <h1 className="text-2xl font-medium">Post</h1>
                 </div>
                 <div className="container item-center justify-center py-4">
-                    <div className="px-6 py-1 flex flex-row items-center">
-                        {user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${user.profile_picture}`} alt={user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
-                        <h3 className="text-lg font-medium cursor-pointer">{user.username}</h3>
+                    <div className="px-6 py-1 flex flex-row items-center justify-between">
+                        <div className="flex flex-row items-center">
+                            {user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${user.profile_picture}`} alt={user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
+                            <h3 className="text-lg font-medium cursor-pointer">{user.username}</h3>
+                        </div>
+                        <OverflowMenu setRefresh={setRefresh} id={post.id} showConfirmModal={showConfirmModal} toggleConfirmModal={toggleConfirmModal} />
                     </div>
                     <div className="px-3 py-1  mx-6">
                         <p>{post}</p>
