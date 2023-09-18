@@ -23,6 +23,10 @@ const PostReducer = (state = INIT_STATE, action: any) => {
             return { ...state };
         case ActionType.GET_POST_USER_OK:
             return GetPostByUserIdSuccessfully(state, action);
+        case ActionType.DELETE_POST_REQ:
+            return { ...state };
+        case ActionType.DELETE_POST_OK:
+            return DeletePostSuccessfully(state, action);
         default:
             return { ...state };
     }
@@ -53,6 +57,13 @@ const GetPostByUserIdSuccessfully = (state: any, action: any) => {
     return {
         ...state,
         userPosts: action.payload,
+    }
+}
+
+const DeletePostSuccessfully = (state: any, action: any) => {
+    return {
+        ...state,
+        posts: [...state.posts, action.payload]
     }
 }
 

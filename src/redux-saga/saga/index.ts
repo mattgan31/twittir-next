@@ -4,7 +4,7 @@ import * as ActionPost from '../constant/postConstant';
 import * as ActionComment from '../constant/commentConstant';
 import * as ActionLike from '../constant/likeConstant'
 import { handleGetUsers, handleSearchUsers, handleSignin, handleSignout, handleSignup } from "./userSaga";
-import { handlePost, createPost, handlePostById, handlePostByUserId } from './postSaga';
+import { handlePost, createPost, handlePostById, handlePostByUserId, deletePost } from './postSaga';
 import { createComment } from "./commentSaga";
 import { createLikeComment, createLikePost } from "./likeSaga";
 
@@ -18,6 +18,7 @@ function* watchAll() {
         takeEvery(ActionPost.GET_POST_REQ, handlePost),
         takeEvery(ActionPost.CREATE_POST_REQ, createPost),
         takeEvery(ActionPost.GET_POST_ID_REQ, handlePostById),
+        takeEvery(ActionPost.DELETE_POST_REQ, deletePost),
         takeEvery(ActionComment.CREATE_COMMENT_REQ, createComment),
         takeEvery(ActionPost.GET_POST_USER_REQ, handlePostByUserId),
         takeEvery(ActionLike.CREATE_LIKE_POST_REQ, createLikePost),

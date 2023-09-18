@@ -8,7 +8,8 @@ import {
     GetPostByIdSuccess,
     GetPostByIdFailed,
     GetPostByUserIdSuccess,
-    GetPostByUserIdFailed
+    GetPostByUserIdFailed,
+    DeletePostSuccess
 } from "../action/postAction";
 
 function* handlePost(): any {
@@ -50,9 +51,21 @@ function* handlePostByUserId(action: any): any {
     }
 }
 
+function* deletePost(action: any): any {
+    const { payload } = action;
+    try {
+        const result = yield call(PostAPI.deletePost, payload);
+        yield put(DeletePostSuccess(result));
+    } catch (error) {
+        yield put(CreatePostFailed(error));
+    }
+}
+
+
 export {
     handlePost,
     createPost,
     handlePostById,
-    handlePostByUserId
+    handlePostByUserId,
+    deletePost
 }

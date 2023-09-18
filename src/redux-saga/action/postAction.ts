@@ -58,3 +58,18 @@ export const GetPostByUserIdFailed = (payload: any) => ({
     type: ActionPost.GET_POST_USER_FAIL,
     payload
 });
+
+export const DeletePostRequest = (payload: any) => ({
+    type: ActionPost.DELETE_POST_REQ,
+    payload
+});
+
+export const DeletePostSuccess = (payload: any) => ({
+    type: ActionPost.DELETE_POST_OK,
+    payload
+});
+
+export const DeletePostFailed = (payload: any) => ({
+    type: ActionPost.DELETE_POST_FAIL,
+    payload
+});
