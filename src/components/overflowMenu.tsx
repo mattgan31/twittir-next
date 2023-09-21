@@ -3,7 +3,7 @@ import { EllipsisVerticalIcon } from '@heroicons/react/24/outline'
 import { useDispatch } from 'react-redux';
 import { DeletePostRequest } from '@/redux-saga/action/postAction';
 import Confirm from './confirm';
-export default function OverflowMenu({ id, toggleConfirmModal, setRefresh }: any) {
+export default function OverflowMenu({ id, toggleConfirmModal, setRefresh, profile, user }: any) {
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useDispatch();
     const menuRef = useRef<HTMLDivElement>(null);
@@ -48,13 +48,17 @@ export default function OverflowMenu({ id, toggleConfirmModal, setRefresh }: any
         <div>
             <button onClick={toggleMenu}><EllipsisVerticalIcon className="w-6 h-6" /></button>
             {isOpen && (
-                <div className="absolute bg-white w-fill p-2 shadow-md rounded-lg" ref={menuRef}>
-                    <button className='p-2 hover:bg-slate-200 w-full my-0.5'>Edit</button>
-                    {/* <button className='p-2 hover:bg-slate-200 w-full my-0.5' onClick={() => deletePost(prop.id)}>Delete</button> */}
-                    <button className='p-2 hover:bg-slate-200 w-full my-0.5' onClick={toggleConfirmModal}>Delete</button>
-                    <button className='p-2 hover:bg-slate-200 w-full my-0.5'>Share</button>
-                </div>
-            )}
+                profile.username == user.username ? (
+                    <div className="absolute bg-white w-fill p-2 shadow-md rounded-lg" ref={menuRef}>
+                        <button className='p-2 hover:bg-slate-200 w-full my-0.5'>Edit</button>
+                        <button className='p-2 hover:bg-slate-200 w-full my-0.5' onClick={toggleConfirmModal}>Delete</button>
+                        <button className='p-2 hover:bg-slate-200 w-full my-0.5'>Share</button>
+                    </div>
+                ) : (
+                    <div className="absolute bg-white w-fill p-2 shadow-md rounded-lg" ref={menuRef}>
+                        <button className='p-2 hover:bg-slate-200 w-full my-0.5'>Share</button>
+                    </div>
+                ))}
         </div>
     )
 }
