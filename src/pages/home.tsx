@@ -5,12 +5,11 @@ import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { getCookie } from 'cookies-next';
 import PostCard from "@/components/postCard";
-import Confirm from "@/components/confirm";
 
 export default function PostList() {
     const dispatch = useDispatch();
     const router = useRouter();
-    const { posts } = useSelector((state: any) => state.postState.posts);
+    const { posts } = useSelector((state: any) => state.postState);
     const [refresh, setRefresh] = useState(false);
     const [profile, setProfile] = useState(false);
     const isLoggedIn = typeof window !== "undefined" && getCookie('token') || undefined
@@ -54,7 +53,7 @@ export default function PostList() {
                 setRefresh(false);
             }, 100);
         }
-    }, [refresh, dispatch, router, isLoggedIn, setRefresh]);
+    }, [refresh, dispatch, router, isLoggedIn]);
 
 
     return (

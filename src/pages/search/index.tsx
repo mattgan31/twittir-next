@@ -52,8 +52,8 @@ export default function Search() {
                         <Outline.MagnifyingGlassIcon className='absolute inset-y-3.5 right-8 flex items-center pl-2 h-8 w-8 stroke-gray-400 icon-search' />
                     </div>
                     <div className="px-6 pt-5 pb-1">
-                        {usersList.users ? (
-                            usersList.users.map((user: any, index: number) => (
+                        {usersList.length > 0 ? (
+                            usersList.map((user: any, index: number) => (
                                 <Link href={`/search/${user.id}`} key={index}>
                                     <div className="py-4 border-b-2 flex flex-row items-center">
                                         {user.profilePicture ? (<Image src={`http://localhost:3001/public/uploads/${user.profilePicture}`} alt={user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetPostByUserIdRequest } from '@/redux-saga/action/postAction';
-import moment from 'moment';
 import { CreateLikePostRequest } from '@/redux-saga/action/likeAction';
 import * as Outline from "@heroicons/react/24/outline"
 import { deleteCookie, getCookie } from 'cookies-next';
@@ -12,7 +11,7 @@ import PostCard from '@/components/postCard';
 export default function Profile() {
     const router = useRouter();
     const dispatch = useDispatch();
-    const { userPosts } = useSelector((state: any) => state.postState); // Assuming postState is where the posts are stored
+    const { userPosts } = useSelector((state: any) => state.postState);
     const [refresh, setRefresh] = useState(false);
     const [username, setUsername] = useState('');
     const [profilePicture, setProfilePicture] = useState('');
@@ -44,7 +43,7 @@ export default function Profile() {
 
 
         setRefresh(false);
-    }, [dispatch, isLoggedIn, router, refresh]);
+    }, [dispatch, isLoggedIn, router, refresh, profile.username, profile.profilePicture, profile.id]);
 
 
     const handleLike = (id: number): void => {
@@ -73,7 +72,7 @@ export default function Profile() {
             </div>
             <div className="">
                 {userPosts ? (
-                    userPosts.posts.map((post: any) => (
+                    userPosts.map((post: any) => (
                         <PostCard key={post.id} post={post} setRefresh={setRefresh} />
                     ))
                 ) : (
