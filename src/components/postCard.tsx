@@ -1,15 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
-import OverflowMenu from './overflowMenu';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { CreateLikePostRequest } from '@/redux-saga/action/likeAction';
 import * as Outline from '@heroicons/react/24/outline'
-import router from 'next/router';
 import { getCookie } from 'cookies-next';
 import Link from 'next/link';
 
-export default function PostCard({ post, setRefresh, showConfirmModal, toggleConfirmModal }: any) {
+export default function PostCard({ post, setRefresh }: any) {
 
     const dispatch = useDispatch();
 
@@ -27,7 +25,7 @@ export default function PostCard({ post, setRefresh, showConfirmModal, toggleCon
         >
             <div className="px-6 py-1 flex flex-row items-center justify-between">
                 <div className="flex flex-row items-center">
-                    {post.user.profile_picture ? (<Image src={`http://localhost:3001/public/uploads/${post.user.profile_picture}`} alt={post.user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
+                    {post.user.profile_picture !== '' ? (<Image src={`http://localhost:3001/public/uploads/${post.user.profile_picture}`} alt={post.user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
                     <h3 className="text-lg font-medium cursor-pointer">{post.user.username}</h3>
                 </div>
             </div>

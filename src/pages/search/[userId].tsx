@@ -3,10 +3,9 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetPostByUserIdRequest } from '@/redux-saga/action/postAction';
 import { getUserReq } from '@/redux-saga/action/userAction'
-import moment from 'moment';
 import { CreateLikePostRequest } from '@/redux-saga/action/likeAction';
 import * as Outline from "@heroicons/react/24/outline"
-import { deleteCookie, getCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import Image from 'next/image'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import PostCard from '@/components/postCard';
@@ -14,7 +13,7 @@ import PostCard from '@/components/postCard';
 export default function Profile() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { userPosts } = useSelector((state: any) => state.postState); // Assuming postState is where the posts are stored
+  const { userPosts } = useSelector((state: any) => state.postState);
   const { user } = useSelector((state: any) => state.userState);
   const [refresh, setRefresh] = useState(false);
   const { userId }: any = router.query;
@@ -62,7 +61,7 @@ export default function Profile() {
       </div>
       <div className="">
         {userPosts ? (
-          userPosts.posts.map((post: any) => (
+          userPosts.map((post: any) => (
             <PostCard key={post.id} post={post} setRefresh={setRefresh} />
           ))
         ) : (

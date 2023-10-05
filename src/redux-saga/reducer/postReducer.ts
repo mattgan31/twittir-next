@@ -1,4 +1,3 @@
-import { GetPostByUserIdSuccess } from "../action/postAction";
 import * as ActionType from "../constant/postConstant";
 
 const INIT_STATE = {
@@ -35,14 +34,14 @@ const PostReducer = (state = INIT_STATE, action: any) => {
 const GetPostsSuccessfully = (state: any, action: any) => {
     return {
         ...state,
-        posts: action.payload
+        posts: action.payload.data
     }
 }
 
 const CreatePostSuccessfully = (state: any, action: any) => {
     return {
         ...state,
-        posts: [...state.posts, action.payload]
+        posts: [...state.posts]
     }
 }
 
@@ -56,14 +55,14 @@ const GetPostByIdSuccessfully = (state: any, action: any) => {
 const GetPostByUserIdSuccessfully = (state: any, action: any) => {
     return {
         ...state,
-        userPosts: action.payload,
+        userPosts: action.payload.data,
     }
 }
 
 const DeletePostSuccessfully = (state: any, action: any) => {
     return {
         ...state,
-        posts: [...state.posts, action.payload]
+        posts: [...state.posts]
     }
 }
 

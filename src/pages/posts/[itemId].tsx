@@ -80,7 +80,7 @@ export default function PostDetail() {
 
 
     // Destructure the selectedPost to avoid unnecessary repetition
-    const { id, user, post, createdAt, comments, likes } = selectedPost.posts;
+    const { id, user, post, createdAt, comments, likes } = selectedPost.data;
 
     const profile = typeof window !== "undefined" && JSON.parse(getCookie('profile') || '{}');
 

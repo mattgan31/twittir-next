@@ -34,7 +34,7 @@ const searchUsers = async (payload: any) => {
     axios.defaults.headers.common = { 'Authorization': `Bearer ${getCookie('token')}` }
     try {
         const result = await axios.get(`${config.domain}/search?username=${payload.username}`);
-        return result;
+        return result.data;
     } catch (error: any) {
         return error.message;
     }
@@ -44,7 +44,7 @@ const getUserById = async (payload: any) => {
     axios.defaults.headers.common = { 'Authorization': `Bearer ${getCookie('token')}` }
     try {
         const result = await axios.get(`${config.domain}/users/${payload.userId}`);
-        return result;
+        return result.data;
     } catch (error: any) {
         return error.message;
     }
