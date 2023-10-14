@@ -5,7 +5,7 @@ import { getCookie } from "cookies-next";
 const register = async (payload: any) => {
     try {
         const result = await axios.post(`${config.domain}/register`, payload);
-        return result;
+        return result.data;
     } catch (error: any) {
         return error.message;
     }
@@ -24,7 +24,7 @@ const profile = async () => {
     axios.defaults.headers.common = { 'Authorization': `Bearer ${getCookie('token')}` }
     try {
         const result = await axios.get(`${config.domain}/users/profile`);
-        return result;
+        return result.data;
     } catch (error: any) {
         return error.message;
     }

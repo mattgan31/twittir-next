@@ -1,11 +1,11 @@
 import React from "react";
-import PostList from "@/pages/home"; // Import the correct path to your component
+import Home from "@/pages/home"; // Import the correct path to your component
 
-export default function Home() {
+export default function Index() {
   return (
     <>
       {/* Add any other components or content here */}
-      <PostList />
+      <Home />
     </>
   );
 }
