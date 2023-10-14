@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { getCookie } from 'cookies-next';
 import PostCard from "@/components/postCard";
 
-export default function PostList() {
+export default function Home() {
     const dispatch = useDispatch();
     const router = useRouter();
     const { posts } = useSelector((state: any) => state.postState);

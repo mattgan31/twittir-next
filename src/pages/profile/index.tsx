@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetPostByUserIdRequest } from '@/redux-saga/action/postAction';
-import { CreateLikePostRequest } from '@/redux-saga/action/likeAction';
-import * as Outline from "@heroicons/react/24/outline"
 import { deleteCookie, getCookie } from 'cookies-next';
 import Image from 'next/image'
 import PostCard from '@/components/postCard';
+import { UserCircleIcon } from '@heroicons/react/24/solid';
 
 export default function Profile() {
     const router = useRouter();
@@ -14,6 +13,7 @@ export default function Profile() {
     const { userPosts } = useSelector((state: any) => state.postState);
     const [refresh, setRefresh] = useState(false);
     const [username, setUsername] = useState('');
+    const [fullname, setFullname] = useState('');
     const [profilePicture, setProfilePicture] = useState('');
 
     const isLoggedIn = typeof window !== "undefined" && getCookie('token');
@@ -28,8 +28,9 @@ export default function Profile() {
     useEffect(() => {
         if (!isLoggedIn) {
             router.push("/login");
-        } else {
+        } else if (profile) {
             setUsername(profile.username);
+            setFullname(profile.fullname);
             setProfilePicture(profile.profilePicture)
 
             setTimeout(() => {
@@ -46,10 +47,10 @@ export default function Profile() {
     }, [dispatch, isLoggedIn, router, refresh, profile.username, profile.profilePicture, profile.id]);
 
 
-    const handleLike = (id: number): void => {
-        dispatch(CreateLikePostRequest({ id }))
-        setRefresh(true)
-    };
+    // const handleLike = (id: number): void => {
+    //     dispatch(CreateLikePostRequest({ id }))
+    //     setRefresh(true)
+    // };
 
     return (
         <div className="container min-w-2xl max-w-screen-lg lg:w-2/4 mt-6 mb-20">
@@ -59,8 +60,11 @@ export default function Profile() {
                 </div>
                 <div className="p-6 flex justify-between">
                     <div className='flex flex-row items-center'>
-                        {profilePicture ? (<Image src={`http://localhost:3001/public/uploads/${profilePicture}`} alt={username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
-                        <h3 className="text-xl font-bold">{username}</h3>
+                        {profilePicture ? (<Image src={`http://localhost:3001/public/uploads/${profilePicture}`} alt={username} width={80} height={80} className='w-12 h-12 mr-2 rounded-full' />) : <UserCircleIcon className='w-12 h-12 mr-2 fill-gray-400' />}
+                        <div className='flex flex-col'>
+                            <h3 className="text-xl font-bold mr-1">{fullname}</h3>
+                            <p className='text-lg text-slate-700'>@{username}</p>
+                        </div>
                     </div>
                     <button
                         onClick={handleLogout}

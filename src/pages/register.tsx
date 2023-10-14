@@ -11,7 +11,7 @@ export default function Register(props: any) {
   const route = useRouter();
   const formik = useFormik({
     initialValues: {
-      full_name: "",
+      fullname: "",
       username: "",
       email: "",
       password: "",
@@ -19,7 +19,7 @@ export default function Register(props: any) {
     },
     onSubmit: async (values) => {
       const payload = {
-        full_name: values.full_name,
+        fullname: values.fullname,
         username: values.username,
         email: values.email,
         password: values.password,
@@ -37,13 +37,13 @@ export default function Register(props: any) {
         {loginError ? (<div className="text-center p-2 my-2 rounded-md bg-red-100"><p className="text-red-600">{loginError} </p></div>) : <></>}
         <form onSubmit={formik.handleSubmit}>
           <div className="p-2">
-            <label htmlFor="full_name">Full Name</label>
+            <label htmlFor="fullname">Full Name</label>
             <input
               type="text"
               placeholder="Full Name"
-              id="full_name"
-              name="full_name"
-              value={formik.values.full_name}
+              id="fullname"
+              name="fullname"
+              value={formik.values.fullname}
               onChange={formik.handleChange}
               className="rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6 block w-full p-2"
             />
