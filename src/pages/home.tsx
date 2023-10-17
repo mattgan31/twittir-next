@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { getCookie } from 'cookies-next';
 import PostCard from "@/components/postCard";
+import { NextResponse } from "next/server";
+import { GetServerSideProps } from "next";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -12,8 +14,6 @@ export default function Home() {
     const { posts } = useSelector((state: any) => state.postState);
     const [refresh, setRefresh] = useState(false);
     const [profile, setProfile] = useState(false);
-    const isLoggedIn = typeof window !== "undefined" && getCookie('token') || undefined
-
 
 
     const formik = useFormik({
@@ -36,24 +36,21 @@ export default function Home() {
     });
 
     useEffect(() => {
-        if (!isLoggedIn) {
-            router.push("/login");
-        } else {
-            setTimeout(() => {
-                const cookiesString = getCookie('profile') as string;
-                if (cookiesString) {
-                    const cookiesObject = JSON.parse(cookiesString);
-                    setProfile(cookiesObject);
-                } else {
-                    console.error('Cookies string is undefined');
-                }
-                // Refresh the data.
-                dispatch(GetPostsRequest());
-                // Clear the refresh flag.
-                setRefresh(false);
-            }, 100);
-        }
-    }, [refresh, dispatch, router, isLoggedIn]);
+
+        setTimeout(() => {
+            const cookiesString = getCookie('profile') as string;
+            if (cookiesString) {
+                const cookiesObject = JSON.parse(cookiesString);
+                setProfile(cookiesObject);
+            } else {
+                console.error('Cookies string is undefined');
+            }
+            // Refresh the data.
+            dispatch(GetPostsRequest());
+            // Clear the refresh flag.
+            setRefresh(false);
+        }, 100);
+    }, [refresh, dispatch, router]);
 
 
     return (

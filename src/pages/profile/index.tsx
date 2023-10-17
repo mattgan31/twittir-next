@@ -6,6 +6,9 @@ import { deleteCookie, getCookie } from 'cookies-next';
 import Image from 'next/image'
 import PostCard from '@/components/postCard';
 import { UserCircleIcon } from '@heroicons/react/24/solid';
+import { authMiddleware } from '../protected-page';
+
+export const getServerSideProps = authMiddleware;
 
 export default function Profile() {
     const router = useRouter();
@@ -26,22 +29,18 @@ export default function Profile() {
     };
 
     useEffect(() => {
-        if (!isLoggedIn) {
-            router.push("/login");
-        } else if (profile) {
-            setUsername(profile.username);
-            setFullname(profile.fullname);
-            setProfilePicture(profile.profilePicture)
 
-            setTimeout(() => {
+        setUsername(profile.username);
+        setFullname(profile.fullname);
+        setProfilePicture(profile.profilePicture)
 
-                // Refresh the data.
-                dispatch(GetPostByUserIdRequest(profile.id));
-                // Clear the refresh flag.
-                setRefresh(false);
-            }, 100);
-        }
+        setTimeout(() => {
 
+            // Refresh the data.
+            dispatch(GetPostByUserIdRequest(profile.id));
+            // Clear the refresh flag.
+            setRefresh(false);
+        }, 100);
 
         setRefresh(false);
     }, [dispatch, isLoggedIn, router, refresh, profile.username, profile.profilePicture, profile.id]);

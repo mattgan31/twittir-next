@@ -6,7 +6,9 @@ import { searchUserReq } from '@/redux-saga/action/userAction';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { authMiddleware } from '../protected-page';
 
+export const getServerSideProps = authMiddleware;
 
 export default function Search() {
     const dispatch = useDispatch();
