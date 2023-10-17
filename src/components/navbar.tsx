@@ -17,10 +17,10 @@ const Navbar = () => {
 
     // Use the useState hook to manage the visibility of the navbar
     const [navbarVisible, setNavbarVisible] = useState(true);
-
+    const cookiesString = getCookie('profile') as string;
     useEffect(() => {
         // Add an event listener to handle window resize
-        const cookiesString = getCookie('profile') as string;
+
         if (cookiesString) {
             const cookiesObject = JSON.parse(cookiesString);
             setProfile(cookiesObject);
@@ -44,7 +44,7 @@ const Navbar = () => {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    }, [cookiesString]);
 
     return (
         <div>
