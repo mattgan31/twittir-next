@@ -12,18 +12,6 @@ export function reportWebVitals(metric: any) {
 export default function App({ Component, pageProps }: AppProps) {
 
     const router = useRouter();
-    const isLoginPage = router.pathname === '/login';
-    const isRegisterPage = router.pathname === '/register';
-
-    if (isLoginPage || isRegisterPage) {
-        return (
-            <Provider store={store}>
-                <main className="flex flex-col items-center h-fit max-h-full max-w-screen min-h-3/4 mx-auto overflow-hidden">
-                    <Component {...pageProps} />
-                </main>
-            </Provider>
-        )
-    }
 
     return (
         <Provider store={store}>
