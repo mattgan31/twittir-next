@@ -32,7 +32,7 @@ export default function Register(props: any) {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="flex flex-col box-content bg-slate-100 w-80 border rounded-lg p-6">
-        <h2 className="text-3xl font-bold text-center text-sky-500">Twittir</h2>
+        <h2 className="text-3xl font-bold text-center text-sky-600">Twittir</h2>
         <h2 className="text-xl font-bold ml-2">Register</h2>
         {loginError ? (<div className="text-center p-2 my-2 rounded-md bg-red-100"><p className="text-red-600">{loginError} </p></div>) : <></>}
         <form onSubmit={formik.handleSubmit}>

@@ -33,7 +33,7 @@ export default function Login(props: any) {
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="flex flex-col bg-slate-100 shadow-md box-content w-80 border rounded-lg p-6">
-                <h2 className="text-3xl font-bold text-center text-sky-500">Twittir</h2>
+                <h2 className="text-3xl font-bold text-center text-sky-600">Twittir</h2>
                 <h2 className="text-xl font-bold ml-2">Login</h2>
                 {loginError ? (<div className="text-center p-2 my-2 rounded-md bg-red-100"><p className="text-red-600">{loginError} </p></div>) : <></>}
                 <form onSubmit={formik.handleSubmit}>
