@@ -9,9 +9,9 @@ const Navbar = () => {
     const router = useRouter();
     const [profile, setProfile] = useState<any>();
 
-    const mainPages = ['/', '/home', '/search', '/profile']
+    const mainPages = ['/', '/home', '/user/search', '/profile']
     const isHome = router.pathname === '/' || router.pathname === '/home';
-    const isSearch = router.pathname === '/search';
+    const isSearch = router.pathname === '/user/search';
     const isProfile = router.pathname === '/profile';
     const isMainPage = mainPages.includes(router.pathname)
 
@@ -62,7 +62,7 @@ const Navbar = () => {
                         </Link>
                     </div>
                     <div className={`p-2 rounded-lg ${isSearch ? 'bg-sky-600' : ''}`}>
-                        <Link href="/search" className="flex items-center">
+                        <Link href="/user/search" className="flex items-center">
                             <MagnifyingGlassIcon
                                 className={`h-8 w-8 hover:fill-blue-700 ${isSearch ? 'fill-white' : 'fill-sky-600'}`}
                             />
