@@ -9,6 +9,7 @@ import { getCookie } from 'cookies-next';
 import Image from 'next/image'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import PostCard from '@/components/postCard';
+import { UserCircleIcon } from '@heroicons/react/24/solid';
 
 export default function Profile() {
   const router = useRouter();
@@ -18,13 +19,10 @@ export default function Profile() {
   const [refresh, setRefresh] = useState(false);
   const { userId }: any = router.query;
 
-  const isLoggedIn = typeof window !== "undefined" && getCookie('token');
 
   useEffect(() => {
-    if (isLoggedIn && userId) {
+    if (userId) {
       dispatch(getUserReq({ userId }));
-    } else {
-      router.push("/login");
     }
     setTimeout(() => {
       // Refresh the data.
@@ -35,7 +33,7 @@ export default function Profile() {
     }, 100);
 
     setRefresh(false);
-  }, [dispatch, isLoggedIn, router, refresh, userId]);
+  }, [dispatch, router, refresh, userId]);
 
 
   const handleLike = (id: number): void => {
@@ -54,8 +52,15 @@ export default function Profile() {
         </div>
         <div className="p-6 flex justify-between">
           <div className='flex flex-row items-center'>
-            {user && user.profilePicture ? (<Image src={`http://localhost:3001/public/uploads/${user.profilePicture}`} alt={user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <Outline.UserCircleIcon className='w-10 h-10 mr-2 fill-gray-100 stroke-gray-400' />}
-            <h3 className="text-xl font-bold">{user ? user.username : ''}</h3>
+            {user && user.profilePicture ? (<Image src={`http://localhost:3001/public/uploads/${user.profilePicture}`} alt={user.username} width={80} height={80} className='w-10 h-10 mr-2 rounded-full' />) : <UserCircleIcon className='w-10 h-10 mr-2 fill-gray-400' />}
+            {/* <h3 className="text-xl font-bold">{user ? user.username : ''}</h3> */}
+            <div className='flex flex-col'>
+              <div className='flex flex-row'>
+                <h3 className="text-xl font-bold mr-1">{user ? user.fullname : ''}</h3>
+                <p className='text-lg text-slate-700'>@{user ? user.username : ''}</p>
+              </div>
+              <p className='text-sm text-slate-700'>{user ? user.bio : ''}</p>
+            </div>
           </div>
         </div>
       </div>

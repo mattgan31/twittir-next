@@ -18,8 +18,8 @@ export default function Profile() {
     const [username, setUsername] = useState('');
     const [fullname, setFullname] = useState('');
     const [profilePicture, setProfilePicture] = useState('');
+    const [bio, setBio] = useState('');
 
-    const isLoggedIn = typeof window !== "undefined" && getCookie('token');
     const profile = typeof window !== "undefined" && JSON.parse(getCookie('profile') || '{}');
 
     const handleLogout = () => {
@@ -32,7 +32,8 @@ export default function Profile() {
 
         setUsername(profile.username);
         setFullname(profile.fullname);
-        setProfilePicture(profile.profilePicture)
+        setProfilePicture(profile.profilePicture);
+        setBio(profile.bio);
 
         setTimeout(() => {
 
@@ -43,7 +44,7 @@ export default function Profile() {
         }, 100);
 
         setRefresh(false);
-    }, [dispatch, isLoggedIn, router, refresh, profile.username, profile.profilePicture, profile.id]);
+    }, [dispatch, router, refresh, profile.username, profile.profilePicture, profile.id, profile.fullname, profile.bio]);
 
 
     // const handleLike = (id: number): void => {
@@ -61,8 +62,11 @@ export default function Profile() {
                     <div className='flex flex-row items-center'>
                         {profilePicture ? (<Image src={`http://localhost:3001/public/uploads/${profilePicture}`} alt={username} width={80} height={80} className='w-12 h-12 mr-2 rounded-full' />) : <UserCircleIcon className='w-12 h-12 mr-2 fill-gray-400' />}
                         <div className='flex flex-col'>
-                            <h3 className="text-xl font-bold mr-1">{fullname}</h3>
-                            <p className='text-lg text-slate-700'>@{username}</p>
+                            <div className='flex flex-row'>
+                                <h3 className="text-xl font-bold mr-1">{fullname}</h3>
+                                <p className='text-lg text-slate-700'>@{username}</p>
+                            </div>
+                            <p className='text-sm text-slate-700'>{bio}</p>
                         </div>
                     </div>
                     <button

@@ -1,5 +1,4 @@
 // middleware/auth.js
-import { getCookie } from 'cookies-next';
 import { verify } from 'jsonwebtoken';
 import { GetServerSideProps } from 'next';
 
