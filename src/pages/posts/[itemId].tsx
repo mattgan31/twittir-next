@@ -41,16 +41,11 @@ export default function PostDetail() {
         setShowConfirmModal(!showConfirmModal);
     };
 
-    const isLoggedIn = typeof window !== "undefined" && getCookie('token');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if (!isLoggedIn) {
-                    router.push('/login');
-                } else {
-                    await dispatch(GetPostByIdRequest(itemId));
-                }
+                dispatch(GetPostByIdRequest(itemId));
             } catch (error) {
                 // Handle the error gracefully
                 console.error('Error fetching post data:', error);
@@ -63,7 +58,7 @@ export default function PostDetail() {
             fetchData();
         }
         setRefresh(false)
-    }, [dispatch, isLoggedIn, itemId, refresh, router]);
+    }, [dispatch, itemId, refresh, router]);
 
     const handleLike = (id: number): void => {
         dispatch(CreateLikePostRequest({ id }))
