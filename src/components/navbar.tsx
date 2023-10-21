@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 const Navbar = () => {
     const router = useRouter();
     const [profile, setProfile] = useState<any>();
+    const [profileClicked, setProfileClicked] = useState(false);
 
     const mainPages = ['/', '/home', '/user/search', '/profile']
     const isHome = router.pathname === '/' || router.pathname === '/home';
@@ -18,6 +19,11 @@ const Navbar = () => {
     // Use the useState hook to manage the visibility of the navbar
     const [navbarVisible, setNavbarVisible] = useState(true);
     const cookiesString = getCookie('profile') as string;
+
+    const changeValueProfileClicked = () => {
+        setProfileClicked(!profileClicked);
+    }
+
     useEffect(() => {
         // Add an event listener to handle window resize
 
@@ -80,7 +86,7 @@ const Navbar = () => {
                     {/* Tambahkan lebih banyak tautan navigasi jika diperlukan */}
                 </div>
                 <div className="p-2 rounded-lg border border-slate-300">
-                    <div className="flex items-center hover:cursor-pointer">
+                    <div className="flex items-center hover:cursor-pointer" onClick={changeValueProfileClicked}>
                         {profile && profile.profile_picture ? (
                             <Image src={profile.profile_picture} sizes="12" alt={""} />
                         ) : (
@@ -92,6 +98,14 @@ const Navbar = () => {
                             <p className="ml-2 text-slate-600 font-light text-sm">@{profile ? profile.username : ''}</p>
                         </div>
                     </div>
+                    {profileClicked && (
+                        <div className="mt-4">
+                            <div className="flex flex-col space-y-2">
+                                <button className="py-1.5 px-2 border-2 border-sky-600 rounded-md text-sky-600 w-full hover:bg-slate-200 hover:border-sky-700 hover:text-sky-700">Settings</button>
+                                <button className="py-1.5 px-2 bg-red-500 rounded-md text-slate-100 w-full hover:bg-red-600">Logout</button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </aside>
         </div>
