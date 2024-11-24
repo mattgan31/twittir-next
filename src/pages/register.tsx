@@ -1,5 +1,5 @@
 import React from "react";
-import { useFormik } from 'formik';
+import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { doSignupRequest } from "@/redux-saga/action/userAction";
@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 export default function Register(props: any) {
   const dispatch = useDispatch();
-  const loginError = useSelector(((state: any) => state.userState.message));
+  const loginError = useSelector((state: any) => state.userState.message);
   const route = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -15,7 +15,7 @@ export default function Register(props: any) {
       username: "",
       email: "",
       password: "",
-      password_verif: ""
+      password_verif: "",
     },
     onSubmit: async (values) => {
       const payload = {
@@ -32,12 +32,24 @@ export default function Register(props: any) {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="flex flex-col box-content bg-slate-100 w-80 border rounded-lg p-6">
-        <h2 className="text-3xl font-bold text-center text-sky-600">Twittir</h2>
-        <h2 className="text-xl font-bold ml-2">Register</h2>
-        {loginError ? (<div className="text-center p-2 my-2 rounded-md bg-red-100"><p className="text-red-600">{loginError} </p></div>) : <></>}
+        <h2 className="text-3xl font-bold text-center text-sky-600 dark:text-white">
+          Twittir
+        </h2>
+        <h2 className="text-xl font-bold ml-2 text-black dark:text-white">
+          Register
+        </h2>
+        {loginError ? (
+          <div className="text-center p-2 my-2 rounded-md bg-red-100">
+            <p className="text-red-600">{loginError} </p>
+          </div>
+        ) : (
+          <></>
+        )}
         <form onSubmit={formik.handleSubmit}>
           <div className="p-2">
-            <label htmlFor="fullname">Full Name</label>
+            <label htmlFor="fullname" className="text-black dark:text-white">
+              Full Name
+            </label>
             <input
               type="text"
               placeholder="Full Name"
@@ -45,11 +57,13 @@ export default function Register(props: any) {
               name="fullname"
               value={formik.values.fullname}
               onChange={formik.handleChange}
-              className="rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6 block w-full p-2"
+              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2"
             />
           </div>
           <div className="p-2">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username" className="text-black dark:text-white">
+              Username
+            </label>
             <input
               type="text"
               placeholder="Username"
@@ -57,11 +71,13 @@ export default function Register(props: any) {
               name="username"
               value={formik.values.username}
               onChange={formik.handleChange}
-              className="rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6 block w-full p-2"
+              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2"
             />
           </div>
           <div className="p-2">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" className="text-black dark:text-white">
+              Email
+            </label>
             <input
               type="email"
               placeholder="Email"
@@ -69,11 +85,13 @@ export default function Register(props: any) {
               name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
-              className="rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6 block w-full p-2"
+              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2"
             />
           </div>
           <div className="p-2">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className="text-black dark:text-white">
+              Password
+            </label>
             <input
               type="password"
               placeholder="Password"
@@ -81,11 +99,16 @@ export default function Register(props: any) {
               name="password"
               value={formik.values.password}
               onChange={formik.handleChange}
-              className="rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6 block w-full p-2"
+              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2"
             />
           </div>
           <div className="p-2">
-            <label htmlFor="password_verif">Password Verification</label>
+            <label
+              htmlFor="password_verif"
+              className="text-black dark:text-white"
+            >
+              Password Verification
+            </label>
             <input
               type="password"
               placeholder="Password Verification"
@@ -93,7 +116,7 @@ export default function Register(props: any) {
               name="password_verif"
               value={formik.values.password_verif}
               onChange={formik.handleChange}
-              className="rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6 block w-full p-2"
+              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2"
             />
           </div>
           <div className="p-2">
@@ -103,8 +126,10 @@ export default function Register(props: any) {
             >
               Register
             </button>
-            <Link href={'/login'}>
-              <button className="flex w-full justify-center text-sky-600 px-3 py-1.5 my-2 rounded-md font-semibold bg-slate-100 outline-sky-500 outline outline-1 outline-offset-0 font-medium hover:bg-slate-300 hover:text-sky-900">Login</button>
+            <Link href={"/login"}>
+              <button className="flex w-full justify-center text-sky-600 px-3 py-1.5 my-2 rounded-md font-semibold bg-slate-100 outline-sky-500 outline outline-1 outline-offset-0 font-medium hover:bg-slate-300 hover:text-sky-900">
+                Login
+              </button>
             </Link>
           </div>
         </form>
