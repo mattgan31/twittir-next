@@ -42,7 +42,7 @@ export default function Profile() {
   return (
     <div className="container min-w-2xl max-w-screen-lg lg:w-2/4 mt-6 mb-20">
       <div className="bg-white dark:bg-slate-800 mb-6 drop-shadow-md rounded-lg">
-        <div className="flex p-6 border-b-2 border-gray-100">
+        <div className="flex p-6 border-b-2 border-gray-100 dark:border-slate-700">
           <button className="me-8" onClick={() => router.back()}>
             <ArrowLeftIcon className="h-8 w-8" />
           </button>

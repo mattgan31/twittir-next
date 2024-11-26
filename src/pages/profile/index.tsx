@@ -62,8 +62,10 @@ export default function Profile() {
   return (
     <div className="container min-w-2xl max-w-screen-lg lg:w-2/4 mt-6 mb-20">
       <div className="bg-white dark:bg-slate-800 mb-6 drop-shadow-md rounded-lg">
-        <div className="flex p-6 border-b-2 border-gray-100">
-          <h1 className="text-2xl font-medium">Profile</h1>
+        <div className="flex p-6 border-b-2 border-gray-100 dark:border-slate-700">
+          <h1 className="text-2xl font-medium text-black dark:text-white">
+            Profile
+          </h1>
         </div>
         <div className="p-6 flex justify-between">
           <div className="flex flex-row items-center">

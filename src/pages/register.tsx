@@ -57,7 +57,7 @@ export default function Register(props: any) {
               name="fullname"
               value={formik.values.fullname}
               onChange={formik.handleChange}
-              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2"
+              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2 text-black dark:text-white"
             />
           </div>
           <div className="p-2">
@@ -71,7 +71,7 @@ export default function Register(props: any) {
               name="username"
               value={formik.values.username}
               onChange={formik.handleChange}
-              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2"
+              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2 text-black dark:text-white"
             />
           </div>
           <div className="p-2">
@@ -85,7 +85,7 @@ export default function Register(props: any) {
               name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
-              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2"
+              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2 text-black dark:text-white"
             />
           </div>
           <div className="p-2">
@@ -99,7 +99,7 @@ export default function Register(props: any) {
               name="password"
               value={formik.values.password}
               onChange={formik.handleChange}
-              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2"
+              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2 text-black dark:text-white"
             />
           </div>
           <div className="p-2">
@@ -116,7 +116,7 @@ export default function Register(props: any) {
               name="password_verif"
               value={formik.values.password_verif}
               onChange={formik.handleChange}
-              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2"
+              className="rounded-md border-0 py-1.5 shadow-sm ring-0 ring-inset sm:text-sm sm:leading-6 block w-full p-2 text-black dark:text-white"
             />
           </div>
           <div className="p-2">

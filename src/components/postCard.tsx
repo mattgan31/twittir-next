@@ -48,7 +48,7 @@ export default function PostCard({ post, setRefresh }: any) {
         </div>
       </div>
       <Link href={"/posts/[itemId]"} as={`/posts/${post.id}`}>
-        <div className="px-3 pt-1 pb-4  mx-6 cursor-pointer border-b-2">
+        <div className="px-3 pt-1 pb-4  mx-6 cursor-pointer border-b-2 dark:border-slate-700">
           <p className="mb-3 text-black dark:text-white text-base font-medium">
             {post.post}
           </p>

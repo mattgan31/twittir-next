@@ -10,6 +10,7 @@ import { getCookie } from "cookies-next";
 import PostCard from "@/components/postCard";
 import { NextResponse } from "next/server";
 import { GetServerSideProps } from "next";
+import TextArea from "@/components/ui/text-area";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -61,15 +62,14 @@ export default function Home() {
             <label className="text-gray-700 dark:text-white font-medium text-md">
               Create a Post
             </label>
-            <textarea
+            <TextArea
               onChange={formik.handleChange}
               value={formik.values.post}
               name="post"
               id="post"
               placeholder="What do you think ?"
               rows={3}
-              className="rounded-md border-0 my-2 py-1.5 bg-gray-100 dark:bg-slate-700 text-black dark:text-white shadow-sm ring-0 sm:text-sm sm:leading-6 block w-full p-2 resize-none"
-            ></textarea>
+            ></TextArea>
             <button
               type="submit"
               className="flex w-full my-2 justify-center rounded-md bg-sky-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

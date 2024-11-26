@@ -101,9 +101,11 @@ export default function PostDetail() {
       <div className="bg-white dark:bg-slate-800 mb-6 drop-shadow-md rounded-lg">
         <div className="flex p-6 p-6 border-gray-100 border-b-2">
           <button className="me-8" onClick={() => router.back()}>
-            <ArrowLeftIcon className="h-8 w-8" />
+            <ArrowLeftIcon className="h-8 w-8 fill-black dark:fill-white" />
           </button>
-          <h1 className="text-2xl font-medium">Post</h1>
+          <h1 className="text-2xl font-medium text-black dark:text-white">
+            Post
+          </h1>
         </div>
         <div className="container item-center justify-center py-4 w-full">
           <div className="px-6 py-1 flex flex-row items-center justify-between">
@@ -119,10 +121,12 @@ export default function PostDetail() {
               ) : (
                 <UserCircleIcon className="w-10 h-10 mr-2 fill-gray-400 dark:fill-white" />
               )}
-              <h3 className="text-lg dark:text-white font-medium cursor-pointer mr-1">
+              <h3 className="sm:text-sm md:text-base lg:text-lg font-bold text-gray-700 dark:text-white cursor-pointer mr-1">
                 {user.fullname}
               </h3>
-              <p className="text-slate-700 dark:text-white">@{user.username}</p>
+              <p className="sm:text-sm md:text-base text-gray-500 dark:text-gray-200">
+                @{user.username}
+              </p>
             </div>
             <OverflowMenu
               setRefresh={setRefresh}
@@ -133,14 +137,14 @@ export default function PostDetail() {
               user={user}
             />
           </div>
-          <div className="px-3 py-1  mx-6">
+          <div className="px-3 py-1  mx-6 text-black dark:text-white space-y-2">
             <p>{post}</p>
-            <p className="font-light text-sm text-black">
+            <p className="font-light text-sm">
               Date: {moment(createdAt).format("DD/MM/YYYY HH:mm")}
             </p>
           </div>
         </div>
-        <div className="flex justify-center px-3 py-3 rounded-lg my-3 mx-6 cursor-pointer border-gray-100 border-b-2 border-t-2">
+        <div className="flex justify-center px-3 py-3 my-3 mx-6 cursor-pointer dark:border-slate-700 border-gray-100 border-b-2 border-t-2">
           <div
             className="w-1/2 text-center flex text-black dark:text-white justify-center items-center"
             onClick={() => handleLike(id)}
@@ -180,14 +184,14 @@ export default function PostDetail() {
           </form>
         </div>
       </div>
-      <div className="mb-6 drop-shadow-md rounded-lg">
+      <div className="mb-6 drop-shadow-md">
         {comments ? (
           comments.map((comment: any) => (
             <div
               key={comment.id}
-              className="container item-center justify-center py-4 mb-6 bg-white dark:bg-slate-800 rounded-lg"
+              className="item-center justify-center py-4 mb-6 bg-white dark:bg-slate-800"
             >
-              <div className="px-6 py-1 flex flex-row items-center">
+              <div className="px-6 py-1 flex flex-row items-center ">
                 {comment.user.profile_picture ? (
                   <Image
                     src={`http://localhost:3001/public/uploads/${comment.user.profile_picture}`}
@@ -197,20 +201,22 @@ export default function PostDetail() {
                     className="w-10 h-10 mr-2 rounded-full"
                   />
                 ) : (
-                  <UserCircleIcon className="w-10 h-10 mr-2 fill-gray-400" />
+                  <UserCircleIcon className="w-10 h-10 mr-2 fill-gray-400 dark:fill-white" />
                 )}
-                <h3 className="text-lg font-medium dark:text-black cursor-pointer mr-1">
+                <h3 className="sm:text-sm md:text-base lg:text-lg font-bold text-gray-700 dark:text-white cursor-pointer mr-1">
                   {comment.user.fullname}
                 </h3>
-                <p className="text-slate-700">@{user.username}</p>
+                <p className="sm:text-sm md:text-base text-gray-500 dark:text-gray-200">
+                  @{user.username}
+                </p>
               </div>
-              <div className="px-6 pb-6 pt-2 mx-6">
+              <div className="px-6 pb-6 pt-2 mx-6 text-black dark:text-white space-y-2">
                 <p>{comment.description}</p>
-                <p className="font-light text-sm text-black">
+                <p className="font-light text-sm dark:text-white text-black">
                   Date: {moment(comment.updatedAt).format("DD/MM/YYYY HH:mm")}
                 </p>
               </div>
-              <div className="flex justify-center px-3 pt-4 rounded-lg mx-6 cursor-pointer border-gray-100 border-t-2">
+              <div className="flex justify-center px-3 pt-4 mx-6 cursor-pointer dark:border-slate-700 border-gray-100 border-t-2">
                 <div
                   className="w-1/2 text-center flex text-black dark:text-white justify-center items-center"
                   onClick={() => handleLikeComment(comment.id)}

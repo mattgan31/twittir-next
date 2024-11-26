@@ -18,24 +18,46 @@ export default function Search() {
   const [refresh, setRefresh] = useState(false);
   const [searchUser, setSearchUser] = useState("");
 
-  useEffect(() => {});
+  useEffect(() => {
+    if (searchUser.trim() === "") {
+      console.log("No valid search query");
+      return;
+    }
+
+    // Perform actions with searchUser
+    console.log("Searching for:", searchUser);
+  }, [searchUser]);
+
+  const sanitizeInput = (value: string) => {
+    // Remove special characters (except spaces)
+    return value.replace(/[^a-zA-Z0-9\s]/g, "");
+  };
 
   const handleInputChange = (e: any) => {
-    setSearchUser(e.target.value);
-    // Refresh the data.
-    dispatch(searchUserReq({ username: e.target.value }));
-    // Clear the refresh flag.
-    setRefresh(false);
+    const rawValue = e.target.value;
+
+    const sanitizedValue = sanitizeInput(rawValue);
+    if (sanitizedValue !== "") {
+      setSearchUser(sanitizedValue);
+      // Refresh the data.
+      dispatch(searchUserReq({ username: sanitizedValue }));
+      // Clear the refresh flag.
+      setRefresh(false);
+    } else {
+      setSearchUser("");
+    }
   };
 
   return (
     <div className="container min-w-2xl max-w-screen-lg lg:w-2/4 mt-6 mb-20">
       <div className="bg-white dark:bg-slate-800 mb-6 drop-shadow-md rounded-lg">
-        <div className="flex p-6 border-b-2">
-          <h1 className="text-2xl font-medium">Search</h1>
+        <div className="flex p-6 border-b-2 border-gray-100 dark:border-slate-700">
+          <h1 className="text-2xl font-medium text-black dark:text-white">
+            Search
+          </h1>
         </div>
         <div className="item-center justify-center py-4 w-full">
-          <div className="px-6 pt-1 pb-5 relative justify-between items-center border-b-2">
+          <div className="px-6 pt-1 pb-5 relative justify-between items-center border-b-2 border-gray-100 dark:border-slate-700">
             <input
               type="text"
               onChange={handleInputChange}
@@ -43,7 +65,7 @@ export default function Search() {
               name="post"
               id="post"
               placeholder="Search..."
-              className="rounded-md border-0 my-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 block w-full p-2 mr-2"
+              className="rounded-md border-0 my-2 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 block w-full p-2 mr-2 bg-gray-100 dark:bg-slate-700 text-black dark:text-white"
             />
             <Outline.MagnifyingGlassIcon className="absolute inset-y-3.5 right-8 flex items-center pl-2 h-8 w-8 stroke-gray-400 icon-search" />
           </div>
@@ -63,7 +85,7 @@ export default function Search() {
                     ) : (
                       <UserCircleIcon className="w-10 h-10 mr-2 fill-gray-400 dark:fill-white" />
                     )}
-                    <h3 className="text-lg font-medium cursor-pointer">
+                    <h3 className="text-lg font-medium cursor-pointer text-black dark:text-white">
                       {user.username}
                     </h3>
                   </div>
