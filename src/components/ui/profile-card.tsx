@@ -17,9 +17,8 @@ export default function ProfileCard({
 }: ProfileInterface) {
   return (
     <div
-      className={`p-2 rounded-lg border border-slate-300 w-full ${
-        navbarVisible ? "block" : "hidden"
-      }`}
+      className={`p-2 rounded-lg border border-slate-300 w-full ${navbarVisible ? "block" : "hidden"
+        }`}
     >
       <div className="flex items-center hover:cursor-pointer">
         {profile && profile.profile_picture ? (

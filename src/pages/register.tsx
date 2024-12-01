@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 export default function Register(props: any) {
   const dispatch = useDispatch();
-  const loginError = useSelector((state: any) => state.userState.message);
+  const registerError = useSelector((state: any) => state.userState.message);
   const route = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -38,9 +38,9 @@ export default function Register(props: any) {
         <h2 className="text-xl font-bold ml-2 text-black dark:text-white">
           Register
         </h2>
-        {loginError ? (
+        {registerError ? (
           <div className="text-center p-2 my-2 rounded-md bg-red-100">
-            <p className="text-red-600">{loginError} </p>
+            <p className="text-red-600">{registerError} </p>
           </div>
         ) : (
           <></>
